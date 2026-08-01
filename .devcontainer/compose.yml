@@ -1,0 +1,40 @@
+name: sezzle-calculator-dev
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    init: true
+    working_dir: /workspace/backend
+
+    volumes:
+      - ../backend:/workspace/backend
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      PORT: "8080"
+
+    command: ["sleep", "infinity"]
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    init: true
+    working_dir: /workspace/frontend
+
+    volumes:
+      - ../frontend:/workspace/frontend
+
+    ports:
+      - "5173:5173"
+
+    depends_on:
+      - backend
+
+    command: ["sleep", "infinity"]

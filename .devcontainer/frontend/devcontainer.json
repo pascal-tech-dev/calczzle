@@ -1,0 +1,47 @@
+{
+    "name": "Sezzle Calculator — Frontend",
+  
+    "dockerComposeFile": "../compose.yml",
+  
+    "service": "frontend",
+  
+    "runServices": [
+      "frontend",
+      "backend"
+    ],
+  
+    "workspaceFolder": "/workspace/frontend",
+  
+    "remoteUser": "node",
+  
+    "shutdownAction": "none",
+  
+    "forwardPorts": [
+      5173
+    ],
+  
+    "portsAttributes": {
+      "5173": {
+        "label": "React Calculator",
+        "onAutoForward": "openBrowser"
+      }
+    },
+  
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "dbaeumer.vscode-eslint",
+          "esbenp.prettier-vscode"
+        ],
+        "settings": {
+          "editor.formatOnSave": true,
+          "[typescript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+          },
+          "[typescriptreact]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+          }
+        }
+      }
+    }
+  }

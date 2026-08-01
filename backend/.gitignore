@@ -1,0 +1,30 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+tmp/
+
+# Test / coverage
+*.test
+*.out
+*.coverprofile
+coverage.out
+coverage.html
+profile.cov
+
+# Dependency directories
+vendor/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.sw?
