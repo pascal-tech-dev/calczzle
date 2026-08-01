@@ -27,7 +27,8 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "golang.go"
+        "golang.go",
+        "postman.postman-for-vscode"
       ],
       "settings": {
         "editor.formatOnSave": true,

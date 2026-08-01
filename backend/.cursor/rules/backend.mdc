@@ -1,0 +1,18 @@
+---
+alwaysApply: true
+---
+
+# Backend Development Rules
+
+Always read `docs/backend-guide.md` before making implementation decisions.
+
+The guide defines:
+
+- project architecture
+- folder structure
+- dependency direction
+- implementation phases
+- testing strategy
+- API conventions
+
+Do not deviate from this guide unless the user explicitly instructs otherwise.
