@@ -1,12 +1,2 @@
-# Coverage reports (never commit)
-**/coverage/
-**/coverage.out
-**/coverage.html
-*.coverprofile
-profile.cov
-
-# Test result artifacts (never commit)
-**/test-results/
-
 # OS
 .DS_Store

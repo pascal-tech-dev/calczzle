@@ -1,0 +1,682 @@
+?   	pascal-tech-dev/calczzle-backend/cmd/api	[no test files]
+=== RUN   TestBodyLimitRejectsOversizedRequest
+=== PAUSE TestBodyLimitRejectsOversizedRequest
+=== RUN   TestBodyLimitAllowsNormalRequest
+=== PAUSE TestBodyLimitAllowsNormalRequest
+=== CONT  TestBodyLimitRejectsOversizedRequest
+=== CONT  TestBodyLimitAllowsNormalRequest
+20:38:16 | 200 |          99µs |         0.0.0.0 | POST    | /api/v1/evaluate 
+--- PASS: TestBodyLimitAllowsNormalRequest (0.00s)
+20:38:16 | 200 |          83ns |         0.0.0.0 | POST    | /api/v1/evaluate 
+--- PASS: TestBodyLimitRejectsOversizedRequest (0.00s)
+PASS
+ok  	pascal-tech-dev/calczzle-backend/internal/app	0.004s
+=== RUN   TestEvaluateSuccess
+=== PAUSE TestEvaluateSuccess
+=== RUN   TestEvaluateCleansFloatingPointNoise
+=== PAUSE TestEvaluateCleansFloatingPointNoise
+=== RUN   TestEvaluateEmptyExpression
+=== PAUSE TestEvaluateEmptyExpression
+=== RUN   TestEvaluateInvalidJSON
+=== PAUSE TestEvaluateInvalidJSON
+=== RUN   TestEvaluateDomainErrors
+=== PAUSE TestEvaluateDomainErrors
+=== CONT  TestEvaluateSuccess
+--- PASS: TestEvaluateSuccess (0.00s)
+=== CONT  TestEvaluateDomainErrors
+=== RUN   TestEvaluateDomainErrors/division_by_zero
+=== PAUSE TestEvaluateDomainErrors/division_by_zero
+=== RUN   TestEvaluateDomainErrors/invalid_square_root
+=== PAUSE TestEvaluateDomainErrors/invalid_square_root
+=== RUN   TestEvaluateDomainErrors/unsupported_function
+=== PAUSE TestEvaluateDomainErrors/unsupported_function
+=== RUN   TestEvaluateDomainErrors/invalid_expression
+=== PAUSE TestEvaluateDomainErrors/invalid_expression
+=== CONT  TestEvaluateDomainErrors/division_by_zero
+=== CONT  TestEvaluateInvalidJSON
+--- PASS: TestEvaluateInvalidJSON (0.00s)
+=== CONT  TestEvaluateEmptyExpression
+--- PASS: TestEvaluateEmptyExpression (0.00s)
+=== CONT  TestEvaluateCleansFloatingPointNoise
+--- PASS: TestEvaluateCleansFloatingPointNoise (0.00s)
+=== CONT  TestEvaluateDomainErrors/invalid_expression
+=== CONT  TestEvaluateDomainErrors/unsupported_function
+=== CONT  TestEvaluateDomainErrors/invalid_square_root
+--- PASS: TestEvaluateDomainErrors (0.00s)
+    --- PASS: TestEvaluateDomainErrors/division_by_zero (0.00s)
+    --- PASS: TestEvaluateDomainErrors/invalid_expression (0.00s)
+    --- PASS: TestEvaluateDomainErrors/unsupported_function (0.00s)
+    --- PASS: TestEvaluateDomainErrors/invalid_square_root (0.00s)
+PASS
+ok  	pascal-tech-dev/calczzle-backend/internal/calculator/controller	0.005s
+=== RUN   TestEvaluatePostfixPipeline
+=== PAUSE TestEvaluatePostfixPipeline
+=== RUN   TestEvaluatePostfix
+=== PAUSE TestEvaluatePostfix
+=== RUN   TestIsSupportedFunction
+=== PAUSE TestIsSupportedFunction
+=== RUN   TestLookupOperator
+=== PAUSE TestLookupOperator
+=== RUN   TestToPostfix
+=== PAUSE TestToPostfix
+=== RUN   TestToPostfixEmptyTokens
+=== PAUSE TestToPostfixEmptyTokens
+=== RUN   TestToPostfixFromTokens
+=== PAUSE TestToPostfixFromTokens
+=== RUN   TestTokenize
+=== PAUSE TestTokenize
+=== CONT  TestEvaluatePostfixPipeline
+=== RUN   TestEvaluatePostfixPipeline/simple_addition
+=== PAUSE TestEvaluatePostfixPipeline/simple_addition
+=== RUN   TestEvaluatePostfixPipeline/mixed_operators_from_guide
+=== PAUSE TestEvaluatePostfixPipeline/mixed_operators_from_guide
+=== RUN   TestEvaluatePostfixPipeline/parentheses_change_order
+=== PAUSE TestEvaluatePostfixPipeline/parentheses_change_order
+=== RUN   TestEvaluatePostfixPipeline/simple_exponentiation
+=== PAUSE TestEvaluatePostfixPipeline/simple_exponentiation
+=== RUN   TestEvaluatePostfixPipeline/right_associative_exponentiation
+=== PAUSE TestEvaluatePostfixPipeline/right_associative_exponentiation
+=== RUN   TestEvaluatePostfixPipeline/sqrt_function
+=== PAUSE TestEvaluatePostfixPipeline/sqrt_function
+=== RUN   TestEvaluatePostfixPipeline/percentage
+=== PAUSE TestEvaluatePostfixPipeline/percentage
+=== RUN   TestEvaluatePostfixPipeline/unary_minus
+=== PAUSE TestEvaluatePostfixPipeline/unary_minus
+=== RUN   TestEvaluatePostfixPipeline/unary_minus_lower_than_exponentiation
+=== PAUSE TestEvaluatePostfixPipeline/unary_minus_lower_than_exponentiation
+=== RUN   TestEvaluatePostfixPipeline/unary_minus_after_operator
+=== PAUSE TestEvaluatePostfixPipeline/unary_minus_after_operator
+=== RUN   TestEvaluatePostfixPipeline/unary_minus_higher_than_multiplication
+=== PAUSE TestEvaluatePostfixPipeline/unary_minus_higher_than_multiplication
+=== RUN   TestEvaluatePostfixPipeline/nested_sqrt
+=== PAUSE TestEvaluatePostfixPipeline/nested_sqrt
+=== RUN   TestEvaluatePostfixPipeline/division_by_zero
+=== PAUSE TestEvaluatePostfixPipeline/division_by_zero
+=== RUN   TestEvaluatePostfixPipeline/negative_square_root
+=== PAUSE TestEvaluatePostfixPipeline/negative_square_root
+=== CONT  TestEvaluatePostfixPipeline/simple_addition
+=== CONT  TestTokenize
+=== RUN   TestTokenize/simple_addition
+=== PAUSE TestTokenize/simple_addition
+=== RUN   TestTokenize/mixed_operators
+=== PAUSE TestTokenize/mixed_operators
+=== RUN   TestTokenize/decimal_number
+=== PAUSE TestTokenize/decimal_number
+=== RUN   TestTokenize/parentheses
+=== PAUSE TestTokenize/parentheses
+=== RUN   TestTokenize/exponentiation
+=== PAUSE TestTokenize/exponentiation
+=== RUN   TestTokenize/sqrt_function
+=== PAUSE TestTokenize/sqrt_function
+=== RUN   TestTokenize/function_name_is_lowercased
+=== PAUSE TestTokenize/function_name_is_lowercased
+=== RUN   TestTokenize/percentage
+=== PAUSE TestTokenize/percentage
+=== RUN   TestTokenize/unicode_operators_are_normalized
+=== PAUSE TestTokenize/unicode_operators_are_normalized
+=== RUN   TestTokenize/whitespace_is_ignored
+=== PAUSE TestTokenize/whitespace_is_ignored
+=== RUN   TestTokenize/nested_parentheses_and_mixed_precedence
+=== PAUSE TestTokenize/nested_parentheses_and_mixed_precedence
+=== RUN   TestTokenize/no_spaces_between_tokens
+=== PAUSE TestTokenize/no_spaces_between_tokens
+=== RUN   TestTokenize/right-associative_power_chain
+=== PAUSE TestTokenize/right-associative_power_chain
+=== RUN   TestTokenize/unary_minus_and_plus_are_just_operators
+=== PAUSE TestTokenize/unary_minus_and_plus_are_just_operators
+=== RUN   TestTokenize/nested_sqrt_with_expression_argument
+=== PAUSE TestTokenize/nested_sqrt_with_expression_argument
+=== RUN   TestTokenize/percentage_of_decimal_expression
+=== PAUSE TestTokenize/percentage_of_decimal_expression
+=== RUN   TestTokenize/leading_decimal_is_accepted_when_digits_follow
+=== PAUSE TestTokenize/leading_decimal_is_accepted_when_digits_follow
+=== RUN   TestTokenize/tabs_and_newlines_count_as_whitespace
+=== PAUSE TestTokenize/tabs_and_newlines_count_as_whitespace
+=== RUN   TestTokenize/identifier_with_underscore_and_digits
+=== PAUSE TestTokenize/identifier_with_underscore_and_digits
+=== RUN   TestTokenize/mixed_unicode_and_ascii_operators
+=== PAUSE TestTokenize/mixed_unicode_and_ascii_operators
+=== RUN   TestTokenize/unmatched_parentheses_still_tokenize
+=== PAUSE TestTokenize/unmatched_parentheses_still_tokenize
+=== RUN   TestTokenize/consecutive_operators_still_tokenize
+=== PAUSE TestTokenize/consecutive_operators_still_tokenize
+=== RUN   TestTokenize/empty_input
+=== PAUSE TestTokenize/empty_input
+=== RUN   TestTokenize/whitespace_only
+=== PAUSE TestTokenize/whitespace_only
+=== RUN   TestTokenize/bare_decimal_point
+=== PAUSE TestTokenize/bare_decimal_point
+=== RUN   TestTokenize/multiple_decimal_points
+=== PAUSE TestTokenize/multiple_decimal_points
+=== RUN   TestTokenize/multiple_decimal_points_like_date
+=== PAUSE TestTokenize/multiple_decimal_points_like_date
+=== RUN   TestTokenize/three_consecutive_decimal_points
+=== PAUSE TestTokenize/three_consecutive_decimal_points
+=== RUN   TestTokenize/double_decimal_in_longer_number
+=== PAUSE TestTokenize/double_decimal_in_longer_number
+=== RUN   TestTokenize/leading_and_middle_decimal_points
+=== PAUSE TestTokenize/leading_and_middle_decimal_points
+=== RUN   TestTokenize/trailing_double_decimal
+=== PAUSE TestTokenize/trailing_double_decimal
+=== RUN   TestTokenize/multiple_decimals_after_operator
+=== PAUSE TestTokenize/multiple_decimals_after_operator
+=== RUN   TestTokenize/multiple_decimals_inside_parentheses
+=== PAUSE TestTokenize/multiple_decimals_inside_parentheses
+=== RUN   TestTokenize/multiple_decimals_in_function_argument
+=== PAUSE TestTokenize/multiple_decimals_in_function_argument
+=== RUN   TestTokenize/invalid_character
+=== PAUSE TestTokenize/invalid_character
+=== RUN   TestTokenize/invalid_character_after_valid_prefix
+=== PAUSE TestTokenize/invalid_character_after_valid_prefix
+=== RUN   TestTokenize/trailing_incomplete_decimal_in_larger_expression
+=== PAUSE TestTokenize/trailing_incomplete_decimal_in_larger_expression
+=== RUN   TestTokenize/number_with_two_dots_mid_expression
+=== PAUSE TestTokenize/number_with_two_dots_mid_expression
+=== CONT  TestTokenize/simple_addition
+=== CONT  TestToPostfixFromTokens
+=== RUN   TestToPostfixFromTokens/simple_subtraction_tokens
+=== PAUSE TestToPostfixFromTokens/simple_subtraction_tokens
+=== RUN   TestToPostfixFromTokens/function_then_left_paren_then_number_then_right_paren
+=== PAUSE TestToPostfixFromTokens/function_then_left_paren_then_number_then_right_paren
+=== RUN   TestToPostfixFromTokens/unknown_operator_symbol
+=== PAUSE TestToPostfixFromTokens/unknown_operator_symbol
+=== RUN   TestToPostfixFromTokens/unexpected_left_parenthesis_after_number
+=== PAUSE TestToPostfixFromTokens/unexpected_left_parenthesis_after_number
+=== RUN   TestToPostfixFromTokens/function_left_on_stack_without_call
+=== PAUSE TestToPostfixFromTokens/function_left_on_stack_without_call
+=== RUN   TestToPostfixFromTokens/invalid_token_type
+=== PAUSE TestToPostfixFromTokens/invalid_token_type
+=== CONT  TestToPostfixFromTokens/simple_subtraction_tokens
+=== CONT  TestToPostfixEmptyTokens
+=== RUN   TestToPostfixEmptyTokens/nil
+=== PAUSE TestToPostfixEmptyTokens/nil
+=== RUN   TestToPostfixEmptyTokens/empty_slice
+=== PAUSE TestToPostfixEmptyTokens/empty_slice
+=== CONT  TestToPostfixEmptyTokens/nil
+=== CONT  TestToPostfix
+=== RUN   TestToPostfix/simple_addition
+=== PAUSE TestToPostfix/simple_addition
+=== RUN   TestToPostfix/mixed_operators_from_guide
+=== PAUSE TestToPostfix/mixed_operators_from_guide
+=== RUN   TestToPostfix/parentheses_change_order
+=== PAUSE TestToPostfix/parentheses_change_order
+=== RUN   TestToPostfix/simple_exponentiation
+=== PAUSE TestToPostfix/simple_exponentiation
+=== RUN   TestToPostfix/right_associative_exponentiation
+=== PAUSE TestToPostfix/right_associative_exponentiation
+=== RUN   TestToPostfix/left_associative_subtraction
+=== PAUSE TestToPostfix/left_associative_subtraction
+=== RUN   TestToPostfix/left_associative_multiplication_and_division
+=== PAUSE TestToPostfix/left_associative_multiplication_and_division
+=== RUN   TestToPostfix/nested_parentheses
+=== PAUSE TestToPostfix/nested_parentheses
+=== RUN   TestToPostfix/double_parentheses_around_number
+=== PAUSE TestToPostfix/double_parentheses_around_number
+=== RUN   TestToPostfix/sqrt_function
+=== PAUSE TestToPostfix/sqrt_function
+=== RUN   TestToPostfix/nested_sqrt_expression
+=== PAUSE TestToPostfix/nested_sqrt_expression
+=== RUN   TestToPostfix/percentage
+=== PAUSE TestToPostfix/percentage
+=== RUN   TestToPostfix/standalone_percentage
+=== PAUSE TestToPostfix/standalone_percentage
+=== RUN   TestToPostfix/decimal_numbers
+=== PAUSE TestToPostfix/decimal_numbers
+=== RUN   TestToPostfix/unary_minus
+=== PAUSE TestToPostfix/unary_minus
+=== RUN   TestToPostfix/unary_minus_after_operator
+=== PAUSE TestToPostfix/unary_minus_after_operator
+=== RUN   TestToPostfix/unary_minus_lower_than_exponentiation
+=== PAUSE TestToPostfix/unary_minus_lower_than_exponentiation
+=== RUN   TestToPostfix/unary_minus_higher_than_multiplication
+=== PAUSE TestToPostfix/unary_minus_higher_than_multiplication
+=== RUN   TestToPostfix/unary_minus_inside_parentheses
+=== PAUSE TestToPostfix/unary_minus_inside_parentheses
+=== RUN   TestToPostfix/unary_plus_is_ignored
+=== PAUSE TestToPostfix/unary_plus_is_ignored
+=== RUN   TestToPostfix/double_plus_treats_second_as_unary
+=== PAUSE TestToPostfix/double_plus_treats_second_as_unary
+=== RUN   TestToPostfix/consecutive_operators
+=== PAUSE TestToPostfix/consecutive_operators
+=== RUN   TestToPostfix/leading_binary_operator
+=== PAUSE TestToPostfix/leading_binary_operator
+=== RUN   TestToPostfix/missing_operator_between_numbers
+=== PAUSE TestToPostfix/missing_operator_between_numbers
+=== RUN   TestToPostfix/number_after_closing_parenthesis
+=== PAUSE TestToPostfix/number_after_closing_parenthesis
+=== RUN   TestToPostfix/unmatched_left_parenthesis
+=== PAUSE TestToPostfix/unmatched_left_parenthesis
+=== RUN   TestToPostfix/unmatched_right_parenthesis
+=== PAUSE TestToPostfix/unmatched_right_parenthesis
+=== RUN   TestToPostfix/empty_parentheses
+=== PAUSE TestToPostfix/empty_parentheses
+=== RUN   TestToPostfix/empty_sqrt_arguments
+=== PAUSE TestToPostfix/empty_sqrt_arguments
+=== RUN   TestToPostfix/bare_function_without_call
+=== PAUSE TestToPostfix/bare_function_without_call
+=== RUN   TestToPostfix/unsupported_function
+=== PAUSE TestToPostfix/unsupported_function
+=== RUN   TestToPostfix/percentage_at_start
+=== PAUSE TestToPostfix/percentage_at_start
+=== RUN   TestToPostfix/percentage_after_operator
+=== PAUSE TestToPostfix/percentage_after_operator
+=== RUN   TestToPostfix/trailing_operator
+=== PAUSE TestToPostfix/trailing_operator
+=== RUN   TestToPostfix/lone_plus
+=== PAUSE TestToPostfix/lone_plus
+=== RUN   TestToPostfix/lone_minus
+=== PAUSE TestToPostfix/lone_minus
+=== CONT  TestToPostfix/simple_addition
+=== CONT  TestLookupOperator
+=== RUN   TestLookupOperator/addition
+=== PAUSE TestLookupOperator/addition
+=== RUN   TestLookupOperator/subtraction
+=== PAUSE TestLookupOperator/subtraction
+=== RUN   TestLookupOperator/multiplication
+=== PAUSE TestLookupOperator/multiplication
+=== RUN   TestLookupOperator/division
+=== PAUSE TestLookupOperator/division
+=== RUN   TestLookupOperator/exponentiation
+=== PAUSE TestLookupOperator/exponentiation
+=== RUN   TestLookupOperator/unary_minus
+=== PAUSE TestLookupOperator/unary_minus
+=== RUN   TestLookupOperator/percentage_is_not_a_binary_operator
+=== PAUSE TestLookupOperator/percentage_is_not_a_binary_operator
+=== RUN   TestLookupOperator/unknown_symbol
+=== PAUSE TestLookupOperator/unknown_symbol
+=== CONT  TestLookupOperator/addition
+=== CONT  TestIsSupportedFunction
+=== RUN   TestIsSupportedFunction/sqrt_supported
+=== PAUSE TestIsSupportedFunction/sqrt_supported
+=== RUN   TestIsSupportedFunction/uppercase_not_accepted_here
+=== PAUSE TestIsSupportedFunction/uppercase_not_accepted_here
+=== RUN   TestIsSupportedFunction/unknown_function
+=== PAUSE TestIsSupportedFunction/unknown_function
+=== RUN   TestIsSupportedFunction/empty_name
+=== PAUSE TestIsSupportedFunction/empty_name
+=== CONT  TestIsSupportedFunction/sqrt_supported
+=== CONT  TestEvaluatePostfix
+=== RUN   TestEvaluatePostfix/guide_postfix_mixed_operators
+=== PAUSE TestEvaluatePostfix/guide_postfix_mixed_operators
+=== RUN   TestEvaluatePostfix/percentage_unary
+=== PAUSE TestEvaluatePostfix/percentage_unary
+=== RUN   TestEvaluatePostfix/unary_minus_token
+=== PAUSE TestEvaluatePostfix/unary_minus_token
+=== RUN   TestEvaluatePostfix/empty_tokens
+=== PAUSE TestEvaluatePostfix/empty_tokens
+=== RUN   TestEvaluatePostfix/stack_underflow_on_binary
+=== PAUSE TestEvaluatePostfix/stack_underflow_on_binary
+=== RUN   TestEvaluatePostfix/extra_operands
+=== PAUSE TestEvaluatePostfix/extra_operands
+=== RUN   TestEvaluatePostfix/division_by_zero
+=== PAUSE TestEvaluatePostfix/division_by_zero
+=== RUN   TestEvaluatePostfix/negative_square_root
+=== PAUSE TestEvaluatePostfix/negative_square_root
+=== RUN   TestEvaluatePostfix/unknown_operator
+=== PAUSE TestEvaluatePostfix/unknown_operator
+=== RUN   TestEvaluatePostfix/parenthesis_in_postfix_is_invalid
+=== PAUSE TestEvaluatePostfix/parenthesis_in_postfix_is_invalid
+=== RUN   TestEvaluatePostfix/non-finite_power
+=== PAUSE TestEvaluatePostfix/non-finite_power
+=== CONT  TestEvaluatePostfix/guide_postfix_mixed_operators
+=== CONT  TestEvaluatePostfixPipeline/negative_square_root
+=== CONT  TestEvaluatePostfixPipeline/division_by_zero
+=== CONT  TestEvaluatePostfixPipeline/nested_sqrt
+=== CONT  TestEvaluatePostfixPipeline/unary_minus_higher_than_multiplication
+=== CONT  TestEvaluatePostfixPipeline/unary_minus_after_operator
+=== CONT  TestEvaluatePostfixPipeline/unary_minus_lower_than_exponentiation
+=== CONT  TestEvaluatePostfixPipeline/unary_minus
+=== CONT  TestEvaluatePostfixPipeline/percentage
+=== CONT  TestEvaluatePostfixPipeline/sqrt_function
+=== CONT  TestEvaluatePostfixPipeline/right_associative_exponentiation
+=== CONT  TestEvaluatePostfixPipeline/simple_exponentiation
+=== CONT  TestEvaluatePostfixPipeline/parentheses_change_order
+=== CONT  TestEvaluatePostfixPipeline/mixed_operators_from_guide
+--- PASS: TestEvaluatePostfixPipeline (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/simple_addition (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/negative_square_root (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/division_by_zero (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/nested_sqrt (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/unary_minus_higher_than_multiplication (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/unary_minus_after_operator (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/unary_minus_lower_than_exponentiation (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/unary_minus (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/percentage (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/sqrt_function (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/right_associative_exponentiation (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/simple_exponentiation (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/parentheses_change_order (0.00s)
+    --- PASS: TestEvaluatePostfixPipeline/mixed_operators_from_guide (0.00s)
+=== CONT  TestTokenize/number_with_two_dots_mid_expression
+=== CONT  TestTokenize/trailing_incomplete_decimal_in_larger_expression
+=== CONT  TestTokenize/invalid_character_after_valid_prefix
+=== CONT  TestTokenize/invalid_character
+=== CONT  TestTokenize/multiple_decimals_in_function_argument
+=== CONT  TestTokenize/multiple_decimals_inside_parentheses
+=== CONT  TestTokenize/multiple_decimals_after_operator
+=== CONT  TestTokenize/trailing_double_decimal
+=== CONT  TestTokenize/leading_and_middle_decimal_points
+=== CONT  TestTokenize/double_decimal_in_longer_number
+=== CONT  TestTokenize/three_consecutive_decimal_points
+=== CONT  TestTokenize/multiple_decimal_points_like_date
+=== CONT  TestTokenize/multiple_decimal_points
+=== CONT  TestTokenize/bare_decimal_point
+=== CONT  TestTokenize/whitespace_only
+=== CONT  TestTokenize/empty_input
+=== CONT  TestTokenize/consecutive_operators_still_tokenize
+=== CONT  TestTokenize/unmatched_parentheses_still_tokenize
+=== CONT  TestTokenize/mixed_unicode_and_ascii_operators
+=== CONT  TestTokenize/identifier_with_underscore_and_digits
+=== CONT  TestTokenize/tabs_and_newlines_count_as_whitespace
+=== CONT  TestTokenize/leading_decimal_is_accepted_when_digits_follow
+=== CONT  TestTokenize/percentage_of_decimal_expression
+=== CONT  TestTokenize/nested_sqrt_with_expression_argument
+=== CONT  TestTokenize/unary_minus_and_plus_are_just_operators
+=== CONT  TestTokenize/right-associative_power_chain
+=== CONT  TestTokenize/no_spaces_between_tokens
+=== CONT  TestTokenize/nested_parentheses_and_mixed_precedence
+=== CONT  TestTokenize/whitespace_is_ignored
+=== CONT  TestTokenize/unicode_operators_are_normalized
+=== CONT  TestTokenize/percentage
+=== CONT  TestTokenize/function_name_is_lowercased
+=== CONT  TestTokenize/sqrt_function
+=== CONT  TestTokenize/exponentiation
+=== CONT  TestTokenize/parentheses
+=== CONT  TestTokenize/decimal_number
+=== CONT  TestTokenize/mixed_operators
+--- PASS: TestTokenize (0.00s)
+    --- PASS: TestTokenize/simple_addition (0.00s)
+    --- PASS: TestTokenize/number_with_two_dots_mid_expression (0.00s)
+    --- PASS: TestTokenize/trailing_incomplete_decimal_in_larger_expression (0.00s)
+    --- PASS: TestTokenize/invalid_character_after_valid_prefix (0.00s)
+    --- PASS: TestTokenize/invalid_character (0.00s)
+    --- PASS: TestTokenize/multiple_decimals_in_function_argument (0.00s)
+    --- PASS: TestTokenize/multiple_decimals_inside_parentheses (0.00s)
+    --- PASS: TestTokenize/multiple_decimals_after_operator (0.00s)
+    --- PASS: TestTokenize/trailing_double_decimal (0.00s)
+    --- PASS: TestTokenize/leading_and_middle_decimal_points (0.00s)
+    --- PASS: TestTokenize/double_decimal_in_longer_number (0.00s)
+    --- PASS: TestTokenize/three_consecutive_decimal_points (0.00s)
+    --- PASS: TestTokenize/multiple_decimal_points_like_date (0.00s)
+    --- PASS: TestTokenize/multiple_decimal_points (0.00s)
+    --- PASS: TestTokenize/bare_decimal_point (0.00s)
+    --- PASS: TestTokenize/whitespace_only (0.00s)
+    --- PASS: TestTokenize/empty_input (0.00s)
+    --- PASS: TestTokenize/consecutive_operators_still_tokenize (0.00s)
+    --- PASS: TestTokenize/unmatched_parentheses_still_tokenize (0.00s)
+    --- PASS: TestTokenize/mixed_unicode_and_ascii_operators (0.00s)
+    --- PASS: TestTokenize/identifier_with_underscore_and_digits (0.00s)
+    --- PASS: TestTokenize/tabs_and_newlines_count_as_whitespace (0.00s)
+    --- PASS: TestTokenize/leading_decimal_is_accepted_when_digits_follow (0.00s)
+    --- PASS: TestTokenize/percentage_of_decimal_expression (0.00s)
+    --- PASS: TestTokenize/nested_sqrt_with_expression_argument (0.00s)
+    --- PASS: TestTokenize/unary_minus_and_plus_are_just_operators (0.00s)
+    --- PASS: TestTokenize/right-associative_power_chain (0.00s)
+    --- PASS: TestTokenize/no_spaces_between_tokens (0.00s)
+    --- PASS: TestTokenize/nested_parentheses_and_mixed_precedence (0.00s)
+    --- PASS: TestTokenize/whitespace_is_ignored (0.00s)
+    --- PASS: TestTokenize/unicode_operators_are_normalized (0.00s)
+    --- PASS: TestTokenize/percentage (0.00s)
+    --- PASS: TestTokenize/function_name_is_lowercased (0.00s)
+    --- PASS: TestTokenize/sqrt_function (0.00s)
+    --- PASS: TestTokenize/exponentiation (0.00s)
+    --- PASS: TestTokenize/parentheses (0.00s)
+    --- PASS: TestTokenize/decimal_number (0.00s)
+    --- PASS: TestTokenize/mixed_operators (0.00s)
+=== CONT  TestToPostfixFromTokens/invalid_token_type
+=== CONT  TestToPostfixFromTokens/function_left_on_stack_without_call
+=== CONT  TestToPostfixFromTokens/unexpected_left_parenthesis_after_number
+=== CONT  TestToPostfixFromTokens/unknown_operator_symbol
+=== CONT  TestToPostfixFromTokens/function_then_left_paren_then_number_then_right_paren
+--- PASS: TestToPostfixFromTokens (0.00s)
+    --- PASS: TestToPostfixFromTokens/simple_subtraction_tokens (0.00s)
+    --- PASS: TestToPostfixFromTokens/invalid_token_type (0.00s)
+    --- PASS: TestToPostfixFromTokens/function_left_on_stack_without_call (0.00s)
+    --- PASS: TestToPostfixFromTokens/unexpected_left_parenthesis_after_number (0.00s)
+    --- PASS: TestToPostfixFromTokens/unknown_operator_symbol (0.00s)
+    --- PASS: TestToPostfixFromTokens/function_then_left_paren_then_number_then_right_paren (0.00s)
+=== CONT  TestToPostfixEmptyTokens/empty_slice
+--- PASS: TestToPostfixEmptyTokens (0.00s)
+    --- PASS: TestToPostfixEmptyTokens/nil (0.00s)
+    --- PASS: TestToPostfixEmptyTokens/empty_slice (0.00s)
+=== CONT  TestToPostfix/lone_minus
+=== CONT  TestToPostfix/lone_plus
+=== CONT  TestToPostfix/trailing_operator
+=== CONT  TestToPostfix/percentage_after_operator
+=== CONT  TestToPostfix/percentage_at_start
+=== CONT  TestToPostfix/unsupported_function
+=== CONT  TestToPostfix/bare_function_without_call
+=== CONT  TestToPostfix/empty_sqrt_arguments
+=== CONT  TestToPostfix/empty_parentheses
+=== CONT  TestToPostfix/unmatched_right_parenthesis
+=== CONT  TestToPostfix/unmatched_left_parenthesis
+=== CONT  TestToPostfix/number_after_closing_parenthesis
+=== CONT  TestToPostfix/missing_operator_between_numbers
+=== CONT  TestToPostfix/leading_binary_operator
+=== CONT  TestToPostfix/consecutive_operators
+=== CONT  TestToPostfix/double_plus_treats_second_as_unary
+=== CONT  TestToPostfix/unary_plus_is_ignored
+=== CONT  TestToPostfix/unary_minus_inside_parentheses
+=== CONT  TestToPostfix/unary_minus_higher_than_multiplication
+=== CONT  TestToPostfix/unary_minus_lower_than_exponentiation
+=== CONT  TestToPostfix/unary_minus_after_operator
+=== CONT  TestToPostfix/unary_minus
+=== CONT  TestToPostfix/decimal_numbers
+=== CONT  TestToPostfix/standalone_percentage
+=== CONT  TestToPostfix/percentage
+=== CONT  TestToPostfix/nested_sqrt_expression
+=== CONT  TestToPostfix/sqrt_function
+=== CONT  TestToPostfix/double_parentheses_around_number
+=== CONT  TestToPostfix/nested_parentheses
+=== CONT  TestToPostfix/left_associative_multiplication_and_division
+=== CONT  TestToPostfix/left_associative_subtraction
+=== CONT  TestToPostfix/right_associative_exponentiation
+=== CONT  TestToPostfix/simple_exponentiation
+=== CONT  TestToPostfix/parentheses_change_order
+=== CONT  TestToPostfix/mixed_operators_from_guide
+--- PASS: TestToPostfix (0.00s)
+    --- PASS: TestToPostfix/simple_addition (0.00s)
+    --- PASS: TestToPostfix/lone_minus (0.00s)
+    --- PASS: TestToPostfix/lone_plus (0.00s)
+    --- PASS: TestToPostfix/trailing_operator (0.00s)
+    --- PASS: TestToPostfix/percentage_after_operator (0.00s)
+    --- PASS: TestToPostfix/percentage_at_start (0.00s)
+    --- PASS: TestToPostfix/unsupported_function (0.00s)
+    --- PASS: TestToPostfix/bare_function_without_call (0.00s)
+    --- PASS: TestToPostfix/empty_sqrt_arguments (0.00s)
+    --- PASS: TestToPostfix/empty_parentheses (0.00s)
+    --- PASS: TestToPostfix/unmatched_right_parenthesis (0.00s)
+    --- PASS: TestToPostfix/unmatched_left_parenthesis (0.00s)
+    --- PASS: TestToPostfix/number_after_closing_parenthesis (0.00s)
+    --- PASS: TestToPostfix/missing_operator_between_numbers (0.00s)
+    --- PASS: TestToPostfix/leading_binary_operator (0.00s)
+    --- PASS: TestToPostfix/consecutive_operators (0.00s)
+    --- PASS: TestToPostfix/double_plus_treats_second_as_unary (0.00s)
+    --- PASS: TestToPostfix/unary_plus_is_ignored (0.00s)
+    --- PASS: TestToPostfix/unary_minus_inside_parentheses (0.00s)
+    --- PASS: TestToPostfix/unary_minus_higher_than_multiplication (0.00s)
+    --- PASS: TestToPostfix/unary_minus_lower_than_exponentiation (0.00s)
+    --- PASS: TestToPostfix/unary_minus_after_operator (0.00s)
+    --- PASS: TestToPostfix/unary_minus (0.00s)
+    --- PASS: TestToPostfix/decimal_numbers (0.00s)
+    --- PASS: TestToPostfix/standalone_percentage (0.00s)
+    --- PASS: TestToPostfix/percentage (0.00s)
+    --- PASS: TestToPostfix/nested_sqrt_expression (0.00s)
+    --- PASS: TestToPostfix/sqrt_function (0.00s)
+    --- PASS: TestToPostfix/double_parentheses_around_number (0.00s)
+    --- PASS: TestToPostfix/nested_parentheses (0.00s)
+    --- PASS: TestToPostfix/left_associative_multiplication_and_division (0.00s)
+    --- PASS: TestToPostfix/left_associative_subtraction (0.00s)
+    --- PASS: TestToPostfix/right_associative_exponentiation (0.00s)
+    --- PASS: TestToPostfix/simple_exponentiation (0.00s)
+    --- PASS: TestToPostfix/parentheses_change_order (0.00s)
+    --- PASS: TestToPostfix/mixed_operators_from_guide (0.00s)
+=== CONT  TestLookupOperator/unknown_symbol
+=== CONT  TestLookupOperator/percentage_is_not_a_binary_operator
+=== CONT  TestLookupOperator/unary_minus
+=== CONT  TestLookupOperator/exponentiation
+=== CONT  TestLookupOperator/division
+=== CONT  TestLookupOperator/multiplication
+=== CONT  TestLookupOperator/subtraction
+--- PASS: TestLookupOperator (0.00s)
+    --- PASS: TestLookupOperator/addition (0.00s)
+    --- PASS: TestLookupOperator/unknown_symbol (0.00s)
+    --- PASS: TestLookupOperator/percentage_is_not_a_binary_operator (0.00s)
+    --- PASS: TestLookupOperator/unary_minus (0.00s)
+    --- PASS: TestLookupOperator/exponentiation (0.00s)
+    --- PASS: TestLookupOperator/division (0.00s)
+    --- PASS: TestLookupOperator/multiplication (0.00s)
+    --- PASS: TestLookupOperator/subtraction (0.00s)
+=== CONT  TestIsSupportedFunction/empty_name
+=== CONT  TestIsSupportedFunction/unknown_function
+=== CONT  TestIsSupportedFunction/uppercase_not_accepted_here
+--- PASS: TestIsSupportedFunction (0.00s)
+    --- PASS: TestIsSupportedFunction/sqrt_supported (0.00s)
+    --- PASS: TestIsSupportedFunction/empty_name (0.00s)
+    --- PASS: TestIsSupportedFunction/unknown_function (0.00s)
+    --- PASS: TestIsSupportedFunction/uppercase_not_accepted_here (0.00s)
+=== CONT  TestEvaluatePostfix/non-finite_power
+=== CONT  TestEvaluatePostfix/parenthesis_in_postfix_is_invalid
+=== CONT  TestEvaluatePostfix/unknown_operator
+=== CONT  TestEvaluatePostfix/negative_square_root
+=== CONT  TestEvaluatePostfix/division_by_zero
+=== CONT  TestEvaluatePostfix/extra_operands
+=== CONT  TestEvaluatePostfix/stack_underflow_on_binary
+=== CONT  TestEvaluatePostfix/empty_tokens
+=== CONT  TestEvaluatePostfix/unary_minus_token
+=== CONT  TestEvaluatePostfix/percentage_unary
+--- PASS: TestEvaluatePostfix (0.00s)
+    --- PASS: TestEvaluatePostfix/guide_postfix_mixed_operators (0.00s)
+    --- PASS: TestEvaluatePostfix/non-finite_power (0.00s)
+    --- PASS: TestEvaluatePostfix/parenthesis_in_postfix_is_invalid (0.00s)
+    --- PASS: TestEvaluatePostfix/unknown_operator (0.00s)
+    --- PASS: TestEvaluatePostfix/negative_square_root (0.00s)
+    --- PASS: TestEvaluatePostfix/division_by_zero (0.00s)
+    --- PASS: TestEvaluatePostfix/extra_operands (0.00s)
+    --- PASS: TestEvaluatePostfix/stack_underflow_on_binary (0.00s)
+    --- PASS: TestEvaluatePostfix/empty_tokens (0.00s)
+    --- PASS: TestEvaluatePostfix/unary_minus_token (0.00s)
+    --- PASS: TestEvaluatePostfix/percentage_unary (0.00s)
+PASS
+ok  	pascal-tech-dev/calczzle-backend/internal/calculator/expression	0.004s
+=== RUN   TestEvaluate
+=== PAUSE TestEvaluate
+=== RUN   TestEvaluateImplementsInterface
+=== PAUSE TestEvaluateImplementsInterface
+=== CONT  TestEvaluate
+=== RUN   TestEvaluate/simple_addition
+=== PAUSE TestEvaluate/simple_addition
+=== RUN   TestEvaluate/mixed_operators_from_guide
+=== PAUSE TestEvaluate/mixed_operators_from_guide
+=== RUN   TestEvaluate/parentheses_change_order
+=== PAUSE TestEvaluate/parentheses_change_order
+=== RUN   TestEvaluate/simple_exponentiation
+=== PAUSE TestEvaluate/simple_exponentiation
+=== RUN   TestEvaluate/right_associative_exponentiation
+=== PAUSE TestEvaluate/right_associative_exponentiation
+=== CONT  TestEvaluateImplementsInterface
+=== RUN   TestEvaluate/sqrt_function
+=== PAUSE TestEvaluate/sqrt_function
+--- PASS: TestEvaluateImplementsInterface (0.00s)
+=== RUN   TestEvaluate/percentage
+=== PAUSE TestEvaluate/percentage
+=== RUN   TestEvaluate/unary_minus
+=== PAUSE TestEvaluate/unary_minus
+=== RUN   TestEvaluate/division_by_zero
+=== PAUSE TestEvaluate/division_by_zero
+=== RUN   TestEvaluate/negative_square_root
+=== PAUSE TestEvaluate/negative_square_root
+=== RUN   TestEvaluate/unsupported_function
+=== PAUSE TestEvaluate/unsupported_function
+=== RUN   TestEvaluate/consecutive_operators
+=== PAUSE TestEvaluate/consecutive_operators
+=== RUN   TestEvaluate/unmatched_parenthesis
+=== PAUSE TestEvaluate/unmatched_parenthesis
+=== RUN   TestEvaluate/empty_expression
+=== PAUSE TestEvaluate/empty_expression
+=== CONT  TestEvaluate/simple_addition
+=== CONT  TestEvaluate/empty_expression
+=== CONT  TestEvaluate/percentage
+=== CONT  TestEvaluate/sqrt_function
+=== CONT  TestEvaluate/unary_minus
+=== CONT  TestEvaluate/unsupported_function
+=== CONT  TestEvaluate/right_associative_exponentiation
+=== CONT  TestEvaluate/simple_exponentiation
+=== CONT  TestEvaluate/parentheses_change_order
+=== CONT  TestEvaluate/mixed_operators_from_guide
+=== CONT  TestEvaluate/unmatched_parenthesis
+=== CONT  TestEvaluate/consecutive_operators
+=== CONT  TestEvaluate/negative_square_root
+=== CONT  TestEvaluate/division_by_zero
+--- PASS: TestEvaluate (0.00s)
+    --- PASS: TestEvaluate/simple_addition (0.00s)
+    --- PASS: TestEvaluate/empty_expression (0.00s)
+    --- PASS: TestEvaluate/percentage (0.00s)
+    --- PASS: TestEvaluate/sqrt_function (0.00s)
+    --- PASS: TestEvaluate/unary_minus (0.00s)
+    --- PASS: TestEvaluate/unsupported_function (0.00s)
+    --- PASS: TestEvaluate/right_associative_exponentiation (0.00s)
+    --- PASS: TestEvaluate/simple_exponentiation (0.00s)
+    --- PASS: TestEvaluate/parentheses_change_order (0.00s)
+    --- PASS: TestEvaluate/mixed_operators_from_guide (0.00s)
+    --- PASS: TestEvaluate/unmatched_parenthesis (0.00s)
+    --- PASS: TestEvaluate/consecutive_operators (0.00s)
+    --- PASS: TestEvaluate/negative_square_root (0.00s)
+    --- PASS: TestEvaluate/division_by_zero (0.00s)
+PASS
+ok  	pascal-tech-dev/calczzle-backend/internal/calculator/service	0.005s
+?   	pascal-tech-dev/calczzle-backend/internal/config	[no test files]
+=== RUN   TestCheck
+=== PAUSE TestCheck
+=== CONT  TestCheck
+--- PASS: TestCheck (0.00s)
+PASS
+ok  	pascal-tech-dev/calczzle-backend/internal/health	0.005s
+=== RUN   TestErrorHandlerMapping
+=== PAUSE TestErrorHandlerMapping
+=== CONT  TestErrorHandlerMapping
+=== RUN   TestErrorHandlerMapping/division_by_zero
+=== PAUSE TestErrorHandlerMapping/division_by_zero
+=== RUN   TestErrorHandlerMapping/invalid_square_root
+=== PAUSE TestErrorHandlerMapping/invalid_square_root
+=== RUN   TestErrorHandlerMapping/unsupported_function
+=== PAUSE TestErrorHandlerMapping/unsupported_function
+=== RUN   TestErrorHandlerMapping/invalid_expression_sentinel
+=== PAUSE TestErrorHandlerMapping/invalid_expression_sentinel
+=== RUN   TestErrorHandlerMapping/plain_syntax_error
+=== PAUSE TestErrorHandlerMapping/plain_syntax_error
+=== RUN   TestErrorHandlerMapping/request_too_large
+=== PAUSE TestErrorHandlerMapping/request_too_large
+=== CONT  TestErrorHandlerMapping/division_by_zero
+=== CONT  TestErrorHandlerMapping/invalid_expression_sentinel
+=== CONT  TestErrorHandlerMapping/unsupported_function
+=== CONT  TestErrorHandlerMapping/request_too_large
+=== CONT  TestErrorHandlerMapping/invalid_square_root
+=== CONT  TestErrorHandlerMapping/plain_syntax_error
+--- PASS: TestErrorHandlerMapping (0.00s)
+    --- PASS: TestErrorHandlerMapping/division_by_zero (0.00s)
+    --- PASS: TestErrorHandlerMapping/invalid_expression_sentinel (0.00s)
+    --- PASS: TestErrorHandlerMapping/request_too_large (0.00s)
+    --- PASS: TestErrorHandlerMapping/unsupported_function (0.00s)
+    --- PASS: TestErrorHandlerMapping/invalid_square_root (0.00s)
+    --- PASS: TestErrorHandlerMapping/plain_syntax_error (0.00s)
+PASS
+ok  	pascal-tech-dev/calczzle-backend/internal/platform/httpx	0.005s
+=== RUN   TestQueueEnqueueDequeue
+--- PASS: TestQueueEnqueueDequeue (0.00s)
+=== RUN   TestQueueDequeueEmpty
+--- PASS: TestQueueDequeueEmpty (0.00s)
+=== RUN   TestQueuePeek
+--- PASS: TestQueuePeek (0.00s)
+=== RUN   TestQueueIsEmpty
+--- PASS: TestQueueIsEmpty (0.00s)
+=== RUN   TestStackPushPop
+--- PASS: TestStackPushPop (0.00s)
+=== RUN   TestStackPopEmpty
+--- PASS: TestStackPopEmpty (0.00s)
+=== RUN   TestStackPeek
+--- PASS: TestStackPeek (0.00s)
+=== RUN   TestStackIsEmpty
+--- PASS: TestStackIsEmpty (0.00s)
+PASS
+ok  	pascal-tech-dev/calczzle-backend/pkg	0.003s

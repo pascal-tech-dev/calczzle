@@ -133,7 +133,7 @@ make cover-backend      # → backend/coverage.out, coverage.html
 make cover-frontend     # → frontend/coverage/
 ```
 
-Artifacts are gitignored. No local Go/Node required for these targets.
+Artifacts land under `*/test-results/` and coverage paths above. No local Go/Node required for these targets.
 
 ## Design decisions and assumptions
 

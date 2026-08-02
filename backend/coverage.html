@@ -1,0 +1,1065 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>api: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">pascal-tech-dev/calczzle-backend/cmd/api/main.go (0.0%)</option>
+				
+				<option value="file1">pascal-tech-dev/calczzle-backend/internal/app/app.go (100.0%)</option>
+				
+				<option value="file2">pascal-tech-dev/calczzle-backend/internal/calculator/controller/controller.go (100.0%)</option>
+				
+				<option value="file3">pascal-tech-dev/calczzle-backend/internal/calculator/controller/response.go (80.0%)</option>
+				
+				<option value="file4">pascal-tech-dev/calczzle-backend/internal/calculator/controller/routes.go (100.0%)</option>
+				
+				<option value="file5">pascal-tech-dev/calczzle-backend/internal/calculator/expression/evaluator.go (88.4%)</option>
+				
+				<option value="file6">pascal-tech-dev/calczzle-backend/internal/calculator/expression/function.go (100.0%)</option>
+				
+				<option value="file7">pascal-tech-dev/calczzle-backend/internal/calculator/expression/operator.go (100.0%)</option>
+				
+				<option value="file8">pascal-tech-dev/calczzle-backend/internal/calculator/expression/parser.go (96.7%)</option>
+				
+				<option value="file9">pascal-tech-dev/calczzle-backend/internal/calculator/expression/tokenizer.go (98.4%)</option>
+				
+				<option value="file10">pascal-tech-dev/calczzle-backend/internal/calculator/service/service.go (100.0%)</option>
+				
+				<option value="file11">pascal-tech-dev/calczzle-backend/internal/config/config.go (0.0%)</option>
+				
+				<option value="file12">pascal-tech-dev/calczzle-backend/internal/health/controller.go (100.0%)</option>
+				
+				<option value="file13">pascal-tech-dev/calczzle-backend/internal/platform/httpx/error_handler.go (85.7%)</option>
+				
+				<option value="file14">pascal-tech-dev/calczzle-backend/pkg/queue.go (100.0%)</option>
+				
+				<option value="file15">pascal-tech-dev/calczzle-backend/pkg/stack.go (100.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">no coverage</span>
+				<span class="cov1">low coverage</span>
+				<span class="cov2">*</span>
+				<span class="cov3">*</span>
+				<span class="cov4">*</span>
+				<span class="cov5">*</span>
+				<span class="cov6">*</span>
+				<span class="cov7">*</span>
+				<span class="cov8">*</span>
+				<span class="cov9">*</span>
+				<span class="cov10">high coverage</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package main
+
+import (
+        "log"
+
+        "pascal-tech-dev/calczzle-backend/internal/app"
+        "pascal-tech-dev/calczzle-backend/internal/config"
+)
+
+func main() <span class="cov0" title="0">{
+        cfg := config.Load()
+        server := app.New(cfg)
+
+        if err := server.Listen(":" + cfg.Port); err != nil </span><span class="cov0" title="0">{
+                log.Fatal(err)
+        }</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package app
+
+import (
+        "github.com/gofiber/fiber/v3"
+        "github.com/gofiber/fiber/v3/middleware/logger"
+        "github.com/gofiber/fiber/v3/middleware/recover"
+
+        calculatorController "pascal-tech-dev/calczzle-backend/internal/calculator/controller"
+        calculatorService "pascal-tech-dev/calczzle-backend/internal/calculator/service"
+        "pascal-tech-dev/calczzle-backend/internal/config"
+        "pascal-tech-dev/calczzle-backend/internal/health"
+        "pascal-tech-dev/calczzle-backend/internal/platform/httpx"
+)
+
+// MaxRequestBodyBytes caps JSON request bodies for evaluate (and other) endpoints.
+// A few kilobytes is more than enough for calculator expressions.
+const MaxRequestBodyBytes = 4 * 1024
+
+// New constructs the Fiber application, registers middleware, and wires routes.
+func New(_ config.Config) *fiber.App <span class="cov10" title="2">{
+        application := fiber.New(fiber.Config{
+                ErrorHandler: httpx.ErrorHandler,
+                BodyLimit:    MaxRequestBodyBytes,
+        })
+
+        application.Use(recover.New())
+        application.Use(logger.New())
+
+        health.New().Register(application)
+
+        calculator := calculatorController.New(calculatorService.New())
+        calculator.Register(application)
+
+        return application
+}</span>
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package controller
+
+import (
+        "strings"
+
+        "github.com/gofiber/fiber/v3"
+
+        "pascal-tech-dev/calczzle-backend/internal/calculator/service"
+)
+
+// Controller serves calculator endpoints.
+type Controller struct {
+        evaluator service.Evaluator
+}
+
+// New constructs a calculator Controller.
+func New(evaluator service.Evaluator) *Controller <span class="cov10" title="8">{
+        return &amp;Controller{evaluator: evaluator}
+}</span>
+
+// Evaluate handles POST /api/v1/evaluate.
+func (c *Controller) Evaluate(ctx fiber.Ctx) error <span class="cov10" title="8">{
+        var req EvaluateRequest
+        if err := ctx.Bind().Body(&amp;req); err != nil </span><span class="cov1" title="1">{
+                return ctx.Status(fiber.StatusBadRequest).JSON(errorBody{
+                        Error: errorDetail{
+                                Code:    "INVALID_REQUEST",
+                                Message: "The request body is invalid.",
+                        },
+                })
+        }</span>
+
+        <span class="cov9" title="7">expression := strings.TrimSpace(req.Expression)
+        if expression == "" </span><span class="cov1" title="1">{
+                return ctx.Status(fiber.StatusBadRequest).JSON(errorBody{
+                        Error: errorDetail{
+                                Code:    "EMPTY_EXPRESSION",
+                                Message: "The expression must not be empty.",
+                        },
+                })
+        }</span>
+
+        <span class="cov8" title="6">result, err := c.evaluator.Evaluate(expression)
+        if err != nil </span><span class="cov7" title="4">{
+                return err
+        }</span>
+
+        <span class="cov4" title="2">return ctx.JSON(EvaluateResponse{Result: cleanFloat(result)})</span>
+}
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package controller
+
+import "strconv"
+
+// EvaluateResponse is the JSON body returned on successful evaluation.
+type EvaluateResponse struct {
+        Result float64 `json:"result"`
+}
+
+// errorBody is the public error envelope returned by calculator endpoints.
+type errorBody struct {
+        Error errorDetail `json:"error"`
+}
+
+type errorDetail struct {
+        Code    string `json:"code"`
+        Message string `json:"message"`
+}
+
+// cleanFloat removes IEEE-754 binary noise (e.g. 0.10500000000000001 → 0.105)
+// while keeping enough significant digits for calculator results.
+func cleanFloat(v float64) float64 <span class="cov10" title="2">{
+        formatted := strconv.FormatFloat(v, 'g', 15, 64)
+        cleaned, err := strconv.ParseFloat(formatted, 64)
+        if err != nil </span><span class="cov0" title="0">{
+                return v
+        }</span>
+        <span class="cov10" title="2">return cleaned</span>
+}
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package controller
+
+import "github.com/gofiber/fiber/v3"
+
+// Register mounts calculator routes on the given router.
+func (c *Controller) Register(router fiber.Router) <span class="cov10" title="8">{
+        api := router.Group("/api/v1")
+        api.Post("/evaluate", c.Evaluate)
+}</span>
+</pre>
+		
+		<pre class="file" id="file5" style="display: none">package expression
+
+import (
+        "math"
+        "strconv"
+
+        "pascal-tech-dev/calczzle-backend/pkg"
+)
+
+// EvaluatePostfix evaluates a postfix token sequence and returns the result.
+func EvaluatePostfix(tokens []Token) (float64, error) <span class="cov7" title="25">{
+        if len(tokens) == 0 </span><span class="cov1" title="1">{
+                return 0, ErrInvalidExpression
+        }</span>
+
+        <span class="cov7" title="24">stack := pkg.NewStack[float64]()
+
+        for _, token := range tokens </span><span class="cov10" title="86">{
+                switch token.Type </span>{
+                case TokenNumber:<span class="cov8" title="48">
+                        value, err := strconv.ParseFloat(token.Value, 64)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return 0, ErrInvalidExpression
+                        }</span>
+                        <span class="cov8" title="48">stack.Push(value)</span>
+
+                case TokenOperator:<span class="cov7" title="31">
+                        if token.Value == UnaryMinusSymbol </span><span class="cov4" title="6">{
+                                if err := applyUnary(stack, func(x float64) (float64, error) </span><span class="cov4" title="6">{
+                                        return -x, nil
+                                }</span>); err != nil <span class="cov0" title="0">{
+                                        return 0, err
+                                }</span>
+                                <span class="cov4" title="6">continue</span>
+                        }
+                        <span class="cov7" title="25">if err := applyBinary(stack, token.Value); err != nil </span><span class="cov4" title="5">{
+                                return 0, err
+                        }</span>
+
+                case TokenPercentage:<span class="cov2" title="2">
+                        if err := applyUnary(stack, func(x float64) (float64, error) </span><span class="cov2" title="2">{
+                                return x / 100, nil
+                        }</span>); err != nil <span class="cov0" title="0">{
+                                return 0, err
+                        }</span>
+
+                case TokenFunction:<span class="cov3" title="4">
+                        if token.Value != "sqrt" </span><span class="cov0" title="0">{
+                                return 0, ErrInvalidExpression
+                        }</span>
+                        <span class="cov3" title="4">if err := applyUnary(stack, func(x float64) (float64, error) </span><span class="cov3" title="4">{
+                                if x &lt; 0 </span><span class="cov2" title="2">{
+                                        return 0, ErrInvalidSquareRoot
+                                }</span>
+                                <span class="cov2" title="2">return math.Sqrt(x), nil</span>
+                        }); err != nil <span class="cov2" title="2">{
+                                return 0, err
+                        }</span>
+
+                default:<span class="cov1" title="1">
+                        return 0, ErrInvalidExpression</span>
+                }
+        }
+
+        <span class="cov6" title="16">if stack.Len() != 1 </span><span class="cov1" title="1">{
+                return 0, ErrInvalidExpression
+        }</span>
+
+        <span class="cov6" title="15">result, _ := stack.Pop()
+        if math.IsNaN(result) || math.IsInf(result, 0) </span><span class="cov0" title="0">{
+                return 0, ErrInvalidExpression
+        }</span>
+        <span class="cov6" title="15">return result, nil</span>
+}
+
+func applyBinary(stack *pkg.Stack[float64], op string) error <span class="cov7" title="25">{
+        right, left, err := popTwo(stack)
+        if err != nil </span><span class="cov1" title="1">{
+                return err
+        }</span>
+
+        <span class="cov7" title="24">var result float64
+        switch op </span>{
+        case "+":<span class="cov4" title="6">
+                result = left + right</span>
+        case "-":<span class="cov3" title="3">
+                result = left - right</span>
+        case "*":<span class="cov4" title="6">
+                result = left * right</span>
+        case "/":<span class="cov2" title="2">
+                if right == 0 </span><span class="cov2" title="2">{
+                        return ErrDivisionByZero
+                }</span>
+                <span class="cov0" title="0">result = left / right</span>
+        case "^":<span class="cov4" title="6">
+                result = math.Pow(left, right)
+                if math.IsNaN(result) || math.IsInf(result, 0) </span><span class="cov1" title="1">{
+                        return ErrInvalidExpression
+                }</span>
+        default:<span class="cov1" title="1">
+                return ErrInvalidExpression</span>
+        }
+
+        <span class="cov7" title="20">stack.Push(result)
+        return nil</span>
+}
+
+func applyUnary(stack *pkg.Stack[float64], fn func(float64) (float64, error)) error <span class="cov6" title="12">{
+        x, err := popOne(stack)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov6" title="12">result, err := fn(x)
+        if err != nil </span><span class="cov2" title="2">{
+                return err
+        }</span>
+        <span class="cov5" title="10">stack.Push(result)
+        return nil</span>
+}
+
+func popOne(stack *pkg.Stack[float64]) (float64, error) <span class="cov9" title="62">{
+        value, ok := stack.Pop()
+        if !ok </span><span class="cov1" title="1">{
+                return 0, ErrInvalidExpression
+        }</span>
+        <span class="cov9" title="61">return value, nil</span>
+}
+
+func popTwo(stack *pkg.Stack[float64]) (right, left float64, err error) <span class="cov7" title="25">{
+        right, err = popOne(stack)
+        if err != nil </span><span class="cov0" title="0">{
+                return 0, 0, err
+        }</span>
+        <span class="cov7" title="25">left, err = popOne(stack)
+        if err != nil </span><span class="cov1" title="1">{
+                return 0, 0, err
+        }</span>
+        <span class="cov7" title="24">return right, left, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file6" style="display: none">package expression
+
+// IsSupportedFunction reports whether name is a known function.
+// Names are expected to already be lowercased by the tokenizer.
+func IsSupportedFunction(name string) bool <span class="cov10" title="14">{
+        return name == "sqrt"
+}</span>
+</pre>
+		
+		<pre class="file" id="file7" style="display: none">package expression
+
+type Associativity int
+
+const (
+        LeftAssociative Associativity = iota
+        RightAssociative
+)
+
+// UnaryMinusSymbol is the internal postfix/stack symbol for unary negation.
+// The tokenizer never emits this; the parser rewrites unary "-" into it.
+const UnaryMinusSymbol = "u-"
+
+type Operator struct {
+        Symbol        string
+        Precedence    int
+        Associativity Associativity
+}
+
+var operators = map[string]Operator{
+        "+":              {Symbol: "+", Precedence: 1, Associativity: LeftAssociative},
+        "-":              {Symbol: "-", Precedence: 1, Associativity: LeftAssociative},
+        "*":              {Symbol: "*", Precedence: 2, Associativity: LeftAssociative},
+        "/":              {Symbol: "/", Precedence: 2, Associativity: LeftAssociative},
+        UnaryMinusSymbol: {Symbol: UnaryMinusSymbol, Precedence: 3, Associativity: RightAssociative},
+        "^":              {Symbol: "^", Precedence: 4, Associativity: RightAssociative},
+}
+
+// LookupOperator returns the operator definition for a symbol.
+func LookupOperator(symbol string) (Operator, bool) <span class="cov10" title="76">{
+        op, ok := operators[symbol]
+        return op, ok
+}</span>
+</pre>
+		
+		<pre class="file" id="file8" style="display: none">package expression
+
+import (
+        "errors"
+
+        "pascal-tech-dev/calczzle-backend/pkg"
+)
+
+// ToPostfix converts infix tokens to postfix using the shunting-yard algorithm.
+func ToPostfix(tokens []Token) ([]Token, error) <span class="cov7" title="58">{
+        if len(tokens) == 0 </span><span class="cov2" title="2">{
+                return nil, errors.New("empty expression")
+        }</span>
+
+        <span class="cov7" title="56">output := pkg.NewQueue[Token]()
+        stack := pkg.NewStack[Token]()
+        expectOperand := true
+
+        for _, token := range tokens </span><span class="cov10" title="218">{
+                switch token.Type </span>{
+                case TokenNumber:<span class="cov8" title="97">
+                        if !expectOperand </span><span class="cov2" title="2">{
+                                return nil, errors.New("unexpected number")
+                        }</span>
+                        <span class="cov8" title="95">output.Enqueue(token)
+                        expectOperand = false</span>
+
+                case TokenFunction:<span class="cov4" title="10">
+                        if !expectOperand </span><span class="cov0" title="0">{
+                                return nil, errors.New("unexpected function")
+                        }</span>
+                        <span class="cov4" title="10">if !IsSupportedFunction(token.Value) </span><span class="cov1" title="1">{
+                                return nil, ErrUnsupportedFunction
+                        }</span>
+                        <span class="cov4" title="9">stack.Push(token)</span>
+
+                case TokenLeftParenthesis:<span class="cov5" title="19">
+                        if !expectOperand </span><span class="cov1" title="1">{
+                                return nil, errors.New("unexpected left parenthesis")
+                        }</span>
+                        <span class="cov5" title="18">stack.Push(token)</span>
+
+                case TokenRightParenthesis:<span class="cov5" title="18">
+                        if expectOperand </span><span class="cov2" title="2">{
+                                return nil, errors.New("unexpected right parenthesis")
+                        }</span>
+                        <span class="cov5" title="16">if err := popUntilLeftParen(output, stack); err != nil </span><span class="cov1" title="1">{
+                                return nil, err
+                        }</span>
+                        <span class="cov5" title="15">expectOperand = false</span>
+
+                case TokenPercentage:<span class="cov3" title="5">
+                        if expectOperand </span><span class="cov2" title="2">{
+                                return nil, errors.New("unexpected percentage")
+                        }</span>
+                        <span class="cov2" title="3">output.Enqueue(token)</span>
+
+                case TokenOperator:<span class="cov8" title="68">
+                        if expectOperand </span><span class="cov5" title="16">{
+                                if err := handleUnaryOperator(token, stack); err != nil </span><span class="cov2" title="2">{
+                                        return nil, err
+                                }</span>
+                                <span class="cov5" title="14">continue</span>
+                        }
+                        <span class="cov7" title="52">if err := handleBinaryOperator(token, output, stack); err != nil </span><span class="cov1" title="1">{
+                                return nil, err
+                        }</span>
+                        <span class="cov7" title="51">expectOperand = true</span>
+
+                default:<span class="cov1" title="1">
+                        return nil, errors.New("invalid token")</span>
+                }
+        }
+
+        <span class="cov7" title="43">if expectOperand </span><span class="cov3" title="4">{
+                return nil, errors.New("expression ends unexpectedly")
+        }</span>
+
+        <span class="cov7" title="39">for !stack.IsEmpty() </span><span class="cov7" title="39">{
+                top, _ := stack.Pop()
+                switch top.Type </span>{
+                case TokenLeftParenthesis:<span class="cov1" title="1">
+                        return nil, errors.New("mismatched parentheses")</span>
+                case TokenFunction:<span class="cov1" title="1">
+                        return nil, errors.New("mismatched parentheses")</span>
+                case TokenOperator:<span class="cov7" title="37">
+                        output.Enqueue(top)</span>
+                default:<span class="cov0" title="0">
+                        return nil, errors.New("invalid token on operator stack")</span>
+                }
+        }
+
+        <span class="cov7" title="37">return drainQueue(output), nil</span>
+}
+
+func handleUnaryOperator(token Token, stack *pkg.Stack[Token]) error <span class="cov5" title="16">{
+        switch token.Value </span>{
+        case "+":<span class="cov2" title="3">
+                // Unary plus is a no-op.
+                return nil</span>
+        case "-":<span class="cov5" title="11">
+                stack.Push(Token{
+                        Type:     TokenOperator,
+                        Value:    UnaryMinusSymbol,
+                        Position: token.Position,
+                })
+                return nil</span>
+        default:<span class="cov2" title="2">
+                return errors.New("unexpected operator")</span>
+        }
+}
+
+func handleBinaryOperator(token Token, output *pkg.Queue[Token], stack *pkg.Stack[Token]) error <span class="cov7" title="52">{
+        op, ok := LookupOperator(token.Value)
+        if !ok </span><span class="cov1" title="1">{
+                return errors.New("unknown operator")
+        }</span>
+
+        <span class="cov7" title="51">for </span><span class="cov7" title="61">{
+                top, ok := stack.Peek()
+                if !ok || !shouldPopOperator(top, op) </span><span class="cov7" title="51">{
+                        break</span>
+                }
+                <span class="cov4" title="10">stack.Pop()
+                output.Enqueue(top)</span>
+        }
+
+        <span class="cov7" title="51">stack.Push(token)
+        return nil</span>
+}
+
+func shouldPopOperator(top Token, incoming Operator) bool <span class="cov6" title="27">{
+        topOp, ok := operatorFromStackToken(top)
+        if !ok </span><span class="cov5" title="11">{
+                return false
+        }</span>
+
+        <span class="cov5" title="16">if topOp.Associativity == LeftAssociative </span><span class="cov4" title="8">{
+                return topOp.Precedence &gt;= incoming.Precedence
+        }</span>
+        <span class="cov4" title="8">return topOp.Precedence &gt; incoming.Precedence</span>
+}
+
+func operatorFromStackToken(token Token) (Operator, bool) <span class="cov6" title="27">{
+        if token.Type != TokenOperator </span><span class="cov5" title="11">{
+                return Operator{}, false
+        }</span>
+        <span class="cov5" title="16">return LookupOperator(token.Value)</span>
+}
+
+func popUntilLeftParen(output *pkg.Queue[Token], stack *pkg.Stack[Token]) error <span class="cov5" title="16">{
+        found := false
+
+        for !stack.IsEmpty() </span><span class="cov6" title="26">{
+                top, _ := stack.Pop()
+
+                if top.Type == TokenLeftParenthesis </span><span class="cov5" title="15">{
+                        found = true
+                        break</span>
+                }
+                <span class="cov5" title="11">if top.Type == TokenFunction </span><span class="cov0" title="0">{
+                        return errors.New("mismatched parentheses")
+                }</span>
+                <span class="cov5" title="11">output.Enqueue(top)</span>
+        }
+
+        <span class="cov5" title="16">if !found </span><span class="cov1" title="1">{
+                return errors.New("mismatched parentheses")
+        }</span>
+
+        <span class="cov5" title="15">if top, ok := stack.Peek(); ok &amp;&amp; top.Type == TokenFunction </span><span class="cov3" title="6">{
+                fn, _ := stack.Pop()
+                output.Enqueue(fn)
+        }</span>
+
+        <span class="cov5" title="15">return nil</span>
+}
+
+func drainQueue(q *pkg.Queue[Token]) []Token <span class="cov7" title="37">{
+        result := make([]Token, 0, q.Len())
+        for !q.IsEmpty() </span><span class="cov9" title="146">{
+                item, _ := q.Dequeue()
+                result = append(result, item)
+        }</span>
+        <span class="cov7" title="37">return result</span>
+}
+</pre>
+		
+		<pre class="file" id="file9" style="display: none">package expression
+
+import (
+        "errors"
+        "strings"
+        "unicode"
+)
+
+func Tokenize(input string) ([]Token, error) <span class="cov7" title="88">{
+        characters := []rune(input)
+        tokens := make([]Token, 0)
+
+        for position := 0; position &lt; len(characters); </span><span class="cov10" title="571">{
+                character := characters[position]
+
+                switch </span>{
+                case unicode.IsSpace(character):<span class="cov8" title="193">
+                        position++</span>
+                case unicode.IsDigit(character) || character == '.':<span class="cov8" title="173">
+                        token, nextPosition, err := scanNumber(characters, position)
+                        if err != nil </span><span class="cov4" title="12">{
+                                return nil, err
+                        }</span>
+                        <span class="cov8" title="161">tokens = append(tokens, token)
+                        position = nextPosition</span>
+                case isIdentifierStart(character):<span class="cov4" title="15">
+                        token, nextPosition, err := scanIdentifier(characters, position)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return nil, err
+                        }</span>
+                        <span class="cov4" title="15">tokens = append(tokens, token)
+                        position = nextPosition</span>
+                case isOperator(character):<span class="cov7" title="113">
+                        tokens = append(tokens, Token{
+                                Type:     TokenOperator,
+                                Value:    normalizeOperator(character),
+                                Position: position,
+                        })
+                        position++</span>
+                case character == '(':<span class="cov6" title="36">
+                        tokens = append(tokens, Token{
+                                Type:     TokenLeftParenthesis,
+                                Value:    string(character),
+                                Position: position,
+                        })
+                        position++</span>
+                case character == ')':<span class="cov5" title="32">
+                        tokens = append(tokens, Token{
+                                Type:     TokenRightParenthesis,
+                                Value:    string(character),
+                                Position: position,
+                        })
+                        position++</span>
+                case character == '%':<span class="cov3" title="7">
+                        tokens = append(tokens, Token{
+                                Type:     TokenPercentage,
+                                Value:    "%",
+                                Position: position,
+                        })
+                        position++</span>
+                default:<span class="cov1" title="2">
+                        return nil, errors.New("invalid character found in input")</span>
+                }
+        }
+
+        <span class="cov7" title="74">if len(tokens) == 0 </span><span class="cov1" title="2">{
+                return nil, errors.New("empty expression")
+        }</span>
+
+        <span class="cov7" title="72">return tokens, nil</span>
+}
+
+// scanNumber scans a number from the input
+func scanNumber(characters []rune, startPosition int) (Token, int, error) <span class="cov8" title="173">{
+        position := startPosition
+        decimalPointFound := false
+        digitCount := 0
+
+        for position &lt; len(characters) </span><span class="cov9" title="363">{
+                character := characters[position]
+
+                switch </span>{
+                case isDigit(character):<span class="cov8" title="215">
+                        digitCount++
+                        position++</span>
+                case isDecimalPoint(character):<span class="cov5" title="31">
+                        if decimalPointFound </span><span class="cov4" title="10">{
+                                return Token{}, position, errors.New("multiple decimal points found")
+                        }</span>
+                        <span class="cov5" title="21">decimalPointFound = true
+                        position++</span>
+                default:<span class="cov7" title="117">
+                        goto numberComplete</span>
+                }
+        }
+
+numberComplete:
+        <span class="cov8" title="163">if digitCount == 0 </span><span class="cov1" title="2">{
+                return Token{}, 0, errors.New("number must start with a digit")
+        }</span>
+
+        <span class="cov8" title="161">value := string(characters[startPosition:position])
+
+        return Token{
+                Type:     TokenNumber,
+                Value:    value,
+                Position: startPosition,
+        }, position, nil</span>
+}
+
+// scanIdentifier scans an identifier from the input
+func scanIdentifier(characters []rune, startPosition int) (Token, int, error) <span class="cov4" title="15">{
+        position := startPosition
+        for position &lt; len(characters) &amp;&amp;
+                isIdentifierPart(characters[position]) </span><span class="cov6" title="63">{
+                position++
+        }</span>
+
+        <span class="cov4" title="15">value := strings.ToLower(
+                string(characters[startPosition:position]),
+        )
+
+        return Token{
+                Type:     TokenFunction,
+                Value:    value,
+                Position: startPosition,
+        }, position, nil</span>
+}
+
+// isDigit checks if the character is a digit
+func isDigit(character rune) bool <span class="cov9" title="363">{
+        return character &gt;= '0' &amp;&amp; character &lt;= '9'
+}</span>
+
+// isDecimalPoint checks if the character is a decimal point
+func isDecimalPoint(character rune) bool <span class="cov8" title="148">{
+        return character == '.'
+}</span>
+
+// isIdentifierStart checks if the character is the start of an identifier
+func isIdentifierStart(character rune) bool <span class="cov8" title="205">{
+        return unicode.IsLetter(character) || character == '_'
+}</span>
+
+// isIdentifierPart checks if the character is a part of an identifier
+func isIdentifierPart(character rune) bool <span class="cov7" title="77">{
+        return unicode.IsLetter(character) || unicode.IsDigit(character) || character == '_'
+}</span>
+
+// isOperator checks if the character is an operator
+func isOperator(character rune) bool <span class="cov8" title="190">{
+        switch character </span>{
+        case '+', '-', '*', '/', '^', '×', '÷', '−':<span class="cov7" title="113">
+                return true</span>
+
+        default:<span class="cov7" title="77">
+                return false</span>
+        }
+}
+
+// normalizeOperator normalizes the operator to a standard form
+func normalizeOperator(character rune) string <span class="cov7" title="113">{
+        switch character </span>{
+        case '×':<span class="cov1" title="2">
+                return "*"</span>
+
+        case '÷':<span class="cov1" title="2">
+                return "/"</span>
+
+        case '−':<span class="cov1" title="2">
+                return "-"</span>
+
+        default:<span class="cov7" title="107">
+                return string(character)</span>
+        }
+}
+</pre>
+		
+		<pre class="file" id="file10" style="display: none">package service
+
+import "pascal-tech-dev/calczzle-backend/internal/calculator/expression"
+
+// Service orchestrates expression evaluation.
+type Service struct{}
+
+// New constructs a calculator Service.
+func New() *Service <span class="cov3" title="2">{
+        return &amp;Service{}
+}</span>
+
+// Evaluate evaluates an arithmetic expression.
+func (s *Service) Evaluate(input string) (float64, error) <span class="cov10" title="14">{
+        tokens, err := expression.Tokenize(input)
+        if err != nil </span><span class="cov1" title="1">{
+                return 0, err
+        }</span>
+
+        <span class="cov9" title="13">postfix, err := expression.ToPostfix(tokens)
+        if err != nil </span><span class="cov4" title="3">{
+                return 0, err
+        }</span>
+
+        <span class="cov8" title="10">return expression.EvaluatePostfix(postfix)</span>
+}
+</pre>
+		
+		<pre class="file" id="file11" style="display: none">package config
+
+import "os"
+
+// Config holds application runtime settings loaded from the environment.
+type Config struct {
+        Port string
+}
+
+// Load reads configuration from environment variables, applying defaults
+// where values are unset.
+func Load() Config <span class="cov0" title="0">{
+        port := os.Getenv("PORT")
+        if port == "" </span><span class="cov0" title="0">{
+                port = "8080"
+        }</span>
+
+        <span class="cov0" title="0">return Config{Port: port}</span>
+}
+</pre>
+		
+		<pre class="file" id="file12" style="display: none">package health
+
+import "github.com/gofiber/fiber/v3"
+
+// Controller serves infrastructure health endpoints.
+type Controller struct{}
+
+// New constructs a health Controller.
+func New() *Controller <span class="cov8" title="1">{
+        return &amp;Controller{}
+}</span>
+
+// Register mounts health routes on the given router.
+func (c *Controller) Register(router fiber.Router) <span class="cov8" title="1">{
+        router.Get("/health", c.Check)
+}</span>
+
+// Check returns a simple readiness response.
+func (c *Controller) Check(ctx fiber.Ctx) error <span class="cov8" title="1">{
+        return ctx.JSON(fiber.Map{
+                "status": "ok",
+        })
+}</span>
+</pre>
+		
+		<pre class="file" id="file13" style="display: none">package httpx
+
+import (
+        "errors"
+
+        "github.com/gofiber/fiber/v3"
+
+        "pascal-tech-dev/calczzle-backend/internal/calculator/expression"
+)
+
+// ErrorHandler maps domain and transport errors to consistent JSON responses.
+func ErrorHandler(ctx fiber.Ctx, err error) error <span class="cov10" title="6">{
+        status, code, message := mapError(err)
+        return ctx.Status(status).JSON(ErrorResponse{
+                Error: ErrorDetail{
+                        Code:    code,
+                        Message: message,
+                },
+        })
+}</span>
+
+func mapError(err error) (status int, code, message string) <span class="cov10" title="6">{
+        switch </span>{
+        case errors.Is(err, expression.ErrDivisionByZero):<span class="cov1" title="1">
+                return fiber.StatusUnprocessableEntity, "DIVISION_BY_ZERO", "Division by zero is not allowed."</span>
+        case errors.Is(err, expression.ErrInvalidSquareRoot):<span class="cov1" title="1">
+                return fiber.StatusUnprocessableEntity, "INVALID_SQUARE_ROOT", "Square root of a negative number is not allowed."</span>
+        case errors.Is(err, expression.ErrUnsupportedFunction):<span class="cov1" title="1">
+                return fiber.StatusBadRequest, "UNSUPPORTED_FUNCTION", "The function is not supported."</span>
+        case errors.Is(err, expression.ErrInvalidExpression):<span class="cov1" title="1">
+                return fiber.StatusBadRequest, "INVALID_EXPRESSION", "The expression is invalid."</span>
+        }
+
+        <span class="cov4" title="2">var fiberErr *fiber.Error
+        if errors.As(err, &amp;fiberErr) </span><span class="cov1" title="1">{
+                switch fiberErr.Code </span>{
+                case fiber.StatusNotFound:<span class="cov0" title="0">
+                        return fiber.StatusNotFound, "NOT_FOUND", "The requested resource was not found."</span>
+                case fiber.StatusRequestEntityTooLarge:<span class="cov1" title="1">
+                        return fiber.StatusRequestEntityTooLarge, "REQUEST_TOO_LARGE", "The request body is too large."</span>
+                default:<span class="cov0" title="0">
+                        return fiberErr.Code, "INTERNAL_SERVER_ERROR", "An unexpected error occurred."</span>
+                }
+        }
+
+        // Tokenizer/parser still return plain errors for syntax problems.
+        <span class="cov1" title="1">return fiber.StatusBadRequest, "INVALID_EXPRESSION", "The expression is invalid."</span>
+}
+</pre>
+		
+		<pre class="file" id="file14" style="display: none">package pkg
+
+// Queue is a FIFO container backed by a slice.
+type Queue[T any] struct {
+        items []T
+}
+
+// NewQueue creates an empty queue.
+func NewQueue[T any]() *Queue[T] <span class="cov7" title="4">{
+        return &amp;Queue[T]{items: make([]T, 0)}
+}</span>
+
+// Enqueue adds an item to the back of the queue.
+func (q *Queue[T]) Enqueue(item T) <span class="cov10" title="6">{
+        q.items = append(q.items, item)
+}</span>
+
+// Dequeue removes and returns the front item.
+// The boolean is false when the queue is empty.
+func (q *Queue[T]) Dequeue() (T, bool) <span class="cov7" title="4">{
+        var zero T
+        if len(q.items) == 0 </span><span class="cov1" title="1">{
+                return zero, false
+        }</span>
+        <span class="cov6" title="3">item := q.items[0]
+        q.items = q.items[1:]
+        return item, true</span>
+}
+
+// Peek returns the front item without removing it.
+// The boolean is false when the queue is empty.
+func (q *Queue[T]) Peek() (T, bool) <span class="cov4" title="2">{
+        var zero T
+        if len(q.items) == 0 </span><span class="cov1" title="1">{
+                return zero, false
+        }</span>
+        <span class="cov1" title="1">return q.items[0], true</span>
+}
+
+// Len returns the number of items in the queue.
+func (q *Queue[T]) Len() int <span class="cov4" title="2">{
+        return len(q.items)
+}</span>
+
+// IsEmpty reports whether the queue has no items.
+func (q *Queue[T]) IsEmpty() bool <span class="cov6" title="3">{
+        return len(q.items) == 0
+}</span>
+</pre>
+		
+		<pre class="file" id="file15" style="display: none">package pkg
+
+// Stack is a LIFO container backed by a slice.
+type Stack[T any] struct {
+        items []T
+}
+
+// NewStack creates an empty stack.
+func NewStack[T any]() *Stack[T] <span class="cov7" title="4">{
+        return &amp;Stack[T]{items: make([]T, 0)}
+}</span>
+
+// Push adds an item to the top of the stack.
+func (s *Stack[T]) Push(item T) <span class="cov10" title="6">{
+        s.items = append(s.items, item)
+}</span>
+
+// Pop removes and returns the top item.
+// The boolean is false when the stack is empty.
+func (s *Stack[T]) Pop() (T, bool) <span class="cov7" title="4">{
+        var zero T
+        if len(s.items) == 0 </span><span class="cov1" title="1">{
+                return zero, false
+        }</span>
+        <span class="cov6" title="3">i := len(s.items) - 1
+        item := s.items[i]
+        s.items = s.items[:i]
+        return item, true</span>
+}
+
+// Peek returns the top item without removing it.
+// The boolean is false when the stack is empty.
+func (s *Stack[T]) Peek() (T, bool) <span class="cov4" title="2">{
+        var zero T
+        if len(s.items) == 0 </span><span class="cov1" title="1">{
+                return zero, false
+        }</span>
+        <span class="cov1" title="1">return s.items[len(s.items)-1], true</span>
+}
+
+// Len returns the number of items on the stack.
+func (s *Stack[T]) Len() int <span class="cov4" title="2">{
+        return len(s.items)
+}</span>
+
+// IsEmpty reports whether the stack has no items.
+func (s *Stack[T]) IsEmpty() bool <span class="cov6" title="3">{
+        return len(s.items) == 0
+}</span>
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

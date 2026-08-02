@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1785702365283" clover="3.2.0">
+  <project timestamp="1785702365283" name="All files">
+    <metrics statements="156" coveredstatements="132" conditionals="119" coveredconditionals="91" methods="33" coveredmethods="31" elements="308" coveredelements="254" complexity="0" loc="156" ncloc="156" packages="5" files="11" classes="11"/>
+    <package name="api">
+      <metrics statements="20" coveredstatements="19" conditionals="14" coveredconditionals="12" methods="2" coveredmethods="2"/>
+      <file name="calculatorApi.ts" path="/app/src/features/calculator/api/calculatorApi.ts">
+        <metrics statements="20" coveredstatements="19" conditionals="14" coveredconditionals="12" methods="2" coveredmethods="2"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="25" count="11" type="stmt"/>
+        <line num="29" count="11" type="stmt"/>
+        <line num="30" count="11" type="stmt"/>
+        <line num="39" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="50" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="53" count="3" type="stmt"/>
+        <line num="54" count="3" type="stmt"/>
+        <line num="59" count="3" type="stmt"/>
+        <line num="66" count="7" type="stmt"/>
+        <line num="68" count="7" type="cond" truecount="4" falsecount="0"/>
+        <line num="69" count="2" type="stmt"/>
+        <line num="76" count="5" type="stmt"/>
+      </file>
+    </package>
+    <package name="components">
+      <metrics statements="27" coveredstatements="27" conditionals="23" coveredconditionals="21" methods="9" coveredmethods="9"/>
+      <file name="Calculator.tsx" path="/app/src/features/calculator/components/Calculator.tsx">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="17" count="57" type="stmt"/>
+        <line num="19" count="57" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="29" count="57" type="stmt"/>
+        <line num="47" count="4" type="stmt"/>
+      </file>
+      <file name="CalculatorButton.tsx" path="/app/src/features/calculator/components/CalculatorButton.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="3" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="31" count="1311" type="cond" truecount="1" falsecount="1"/>
+        <line num="32" count="1311" type="stmt"/>
+        <line num="36" count="1311" type="stmt"/>
+      </file>
+      <file name="CalculatorDisplay.tsx" path="/app/src/features/calculator/components/CalculatorDisplay.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="8" coveredconditionals="8" methods="1" coveredmethods="1"/>
+        <line num="17" count="57" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="57" type="stmt"/>
+      </file>
+      <file name="CalculatorKeypad.tsx" path="/app/src/features/calculator/components/CalculatorKeypad.tsx">
+        <metrics statements="16" coveredstatements="16" conditionals="12" coveredconditionals="11" methods="4" coveredmethods="4"/>
+        <line num="18" count="25" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="23" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="28" count="23" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="4" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
+        <line num="33" count="19" type="cond" truecount="1" falsecount="1"/>
+        <line num="34" count="19" type="stmt"/>
+        <line num="45" count="57" type="stmt"/>
+        <line num="49" count="1311" type="cond" truecount="2" falsecount="0"/>
+        <line num="51" count="1311" type="stmt"/>
+        <line num="53" count="1311" type="stmt"/>
+        <line num="62" count="25" type="stmt"/>
+      </file>
+    </package>
+    <package name="hooks">
+      <metrics statements="76" coveredstatements="61" conditionals="53" coveredconditionals="37" methods="14" coveredmethods="14"/>
+      <file name="useCalculator.ts" path="/app/src/features/calculator/hooks/useCalculator.ts">
+        <metrics statements="34" coveredstatements="29" conditionals="22" coveredconditionals="15" methods="8" coveredmethods="8"/>
+        <line num="25" count="57" type="stmt"/>
+        <line num="29" count="57" type="stmt"/>
+        <line num="31" count="57" type="stmt"/>
+        <line num="32" count="14" type="stmt"/>
+        <line num="33" count="14" type="stmt"/>
+        <line num="37" count="57" type="stmt"/>
+        <line num="40" count="57" type="cond" truecount="6" falsecount="0"/>
+        <line num="47" count="7" type="stmt"/>
+        <line num="48" count="7" type="stmt"/>
+        <line num="52" count="29" type="cond" truecount="1" falsecount="1"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="55" count="29" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="60" count="2" type="stmt"/>
+        <line num="64" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="71" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="75" count="5" type="stmt"/>
+        <line num="77" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="81" count="5" type="stmt"/>
+        <line num="82" count="5" type="stmt"/>
+        <line num="83" count="5" type="stmt"/>
+        <line num="85" count="5" type="stmt"/>
+        <line num="87" count="5" type="stmt"/>
+        <line num="88" count="5" type="stmt"/>
+        <line num="92" count="4" type="stmt"/>
+        <line num="94" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="95" count="0" type="stmt"/>
+        <line num="99" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="103" count="1" type="stmt"/>
+        <line num="107" count="57" type="stmt"/>
+      </file>
+      <file name="useCalculatorKeyboard.ts" path="/app/src/features/calculator/hooks/useCalculatorKeyboard.ts">
+        <metrics statements="42" coveredstatements="32" conditionals="31" coveredconditionals="22" methods="6" coveredmethods="6"/>
+        <line num="12" count="16" type="cond" truecount="1" falsecount="1"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="16" count="16" type="stmt"/>
+        <line num="17" count="16" type="stmt"/>
+        <line num="26" count="57" type="stmt"/>
+        <line num="28" count="57" type="stmt"/>
+        <line num="29" count="57" type="stmt"/>
+        <line num="32" count="57" type="stmt"/>
+        <line num="34" count="16" type="cond" truecount="1" falsecount="1"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="44" count="16" type="stmt"/>
+        <line num="46" count="16" type="stmt"/>
+        <line num="48" count="16" type="cond" truecount="2" falsecount="3"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="53" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="54" count="8" type="stmt"/>
+        <line num="55" count="8" type="stmt"/>
+        <line num="56" count="8" type="stmt"/>
+        <line num="59" count="8" type="cond" truecount="12" falsecount="4"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="72" count="2" type="stmt"/>
+        <line num="73" count="2" type="stmt"/>
+        <line num="74" count="2" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="90" count="1" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="94" count="3" type="stmt"/>
+        <line num="98" count="14" type="stmt"/>
+        <line num="99" count="14" type="stmt"/>
+        <line num="100" count="14" type="stmt"/>
+      </file>
+    </package>
+    <package name="model">
+      <metrics statements="33" coveredstatements="25" conditionals="29" coveredconditionals="21" methods="8" coveredmethods="6"/>
+      <file name="calculator.reducer.ts" path="/app/src/features/calculator/model/calculator.reducer.ts">
+        <metrics statements="10" coveredstatements="8" conditionals="7" coveredconditionals="6" methods="1" coveredmethods="1"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="16" count="51" type="cond" truecount="6" falsecount="1"/>
+        <line num="18" count="32" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="44" count="6" type="stmt"/>
+        <line num="51" count="5" type="stmt"/>
+        <line num="60" count="2" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+      </file>
+      <file name="calculatorKeys.ts" path="/app/src/features/calculator/model/calculatorKeys.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+      </file>
+      <file name="expressionBuilder.ts" path="/app/src/features/calculator/model/expressionBuilder.ts">
+        <metrics statements="22" coveredstatements="16" conditionals="22" coveredconditionals="15" methods="7" coveredmethods="5"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="14" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="31" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="43" count="32" type="stmt"/>
+        <line num="45" count="32" type="cond" truecount="4" falsecount="0"/>
+        <line num="46" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="53" count="32" type="cond" truecount="2" falsecount="2"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="57" count="32" type="stmt"/>
+        <line num="59" count="32" type="cond" truecount="1" falsecount="1"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="63" count="32" type="stmt"/>
+      </file>
+    </package>
+    <package name="styles">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="Calculator.module.css" path="/app/src/features/calculator/styles/Calculator.module.css">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+  </project>
+</coverage>
