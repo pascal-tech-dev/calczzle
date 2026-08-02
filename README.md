@@ -2,22 +2,28 @@
 
 Calculator assignment: React frontend + Go evaluation API.
 
+## Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/) (Compose V2: `docker compose`)
+
+Local Go or Node installs are optional. Running the app, tests, and coverage via the root `Makefile` only needs Docker.
+
 ## Quick start (Docker Compose)
 
-Requires Docker. From the repo root:
+From the repo root:
 
 ```bash
 make up
 # or: docker compose up --build -d
 ```
 
-Then open [http://localhost](http://localhost).
+Then open [http://localhost:9091](http://localhost:9091).
 
-| Service  | URL |
-|----------|-----|
-| App UI   | http://localhost |
-| API      | http://localhost:8080 |
-| Health   | http://localhost:8080/health |
+| Environment | Frontend | Backend |
+|-------------|----------|---------|
+| Dev Containers | http://localhost:5173 | http://localhost:8080 |
+| Production Compose | http://localhost:9091 | http://localhost:9090 |
 
 Stop the stack:
 
@@ -25,19 +31,24 @@ Stop the stack:
 make down
 ```
 
-The frontend nginx container proxies `/api/` to the `backend` service on the Compose network, so the browser only talks to port 80.
+Nginx proxies `/api/` to `backend:8080` on the Compose network, so the UI at `:9091` can call the API without CORS.
 
-## Test coverage (Docker)
+## Tests & coverage (Docker)
 
-Runs tests in ephemeral containers (`docker run --rm`), writes reports on the host, then exits:
+Runs in ephemeral containers (`docker run --rm`). No local Go or Node install required.
 
 ```bash
-make cover              # backend + frontend
+make test               # backend + frontend → */test-results/
+make test-backend       # → backend/test-results/report.txt + report.json
+make test-frontend      # → frontend/test-results/report.txt + report.json
+
+make cover              # backend + frontend with coverage reports
 make cover-backend      # → backend/coverage.out, backend/coverage.html
 make cover-frontend     # → frontend/coverage/
 ```
 
-No local Go or Node install required for these targets.
+Test and coverage artifacts are gitignored.
+
 
 ## Development
 

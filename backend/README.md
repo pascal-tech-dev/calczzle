@@ -37,7 +37,7 @@ Standalone API image:
 
 ```bash
 docker build -t calczzle-backend .
-docker run --rm -p 8080:8080 calczzle-backend
+docker run --rm -p 9090:8080 calczzle-backend
 ```
 
 Coverage without a local Go install (from repo root):

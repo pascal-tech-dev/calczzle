@@ -1,5 +1,6 @@
 # Production stack: nginx frontend + Go API.
-# Browser → http://localhost → nginx → /api/* → backend:8080
+# Host ports use 90xx so they do not clash with Dev Containers (5173 / 8080).
+# Browser → http://localhost:9091 → nginx → /api/* → backend:8080 (Compose network)
 
 name: calczzle
 
@@ -9,7 +10,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "9090:8080"
     environment:
       PORT: "8080"
     restart: unless-stopped
@@ -19,7 +20,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "9091:80"
     depends_on:
       - backend
     restart: unless-stopped

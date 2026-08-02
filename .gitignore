@@ -5,5 +5,8 @@
 *.coverprofile
 profile.cov
 
+# Test result artifacts (never commit)
+**/test-results/
+
 # OS
 .DS_Store
