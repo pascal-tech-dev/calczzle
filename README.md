@@ -2,6 +2,8 @@
 
 Calculator assignment: a React frontend that builds expressions and a Go backend that evaluates them over REST. The browser never evaluates math locally and never uses `eval()`.
 
+**Repository:** [https://github.com/pascal-tech-dev/calczzle](https://github.com/pascal-tech-dev/calczzle)
+
 ## Prerequisites
 
 - [Docker](https://docs.docker.com/get-docker/)
@@ -11,7 +13,13 @@ Local Go or Node installs are optional. Running the app, tests, and coverage via
 
 ## Setup
 
-1. Clone the repository.
+1. Clone the repository:
+
+```bash
+git clone https://github.com/pascal-tech-dev/calczzle.git
+cd calczzle
+```
+
 2. Confirm Docker is running (`docker version`, `docker compose version`).
 3. From the repo root, start the stack (builds images on first run):
 
