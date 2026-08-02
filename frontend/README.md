@@ -60,12 +60,27 @@ App
 
 Multi-stage build: Node builds the app, nginx serves `dist` and proxies `/api/` to `backend:8080`.
 
+Prefer the root Compose stack (UI on port 80, API on 8080):
+
+```bash
+# from repo root
+make up
+```
+
+Standalone image:
+
 ```bash
 docker build -t calczzle-frontend .
 docker run --rm -p 8081:80 calczzle-frontend
 ```
 
-In Compose, attach the container to the same network as the `backend` service so `http://backend:8080` resolves.
+Standalone runs need the same Docker network as a `backend` service so `http://backend:8080` resolves.
+
+Coverage without a local Node install (from repo root):
+
+```bash
+make cover-frontend
+```
 
 ## Manual checks
 

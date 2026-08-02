@@ -26,9 +26,24 @@ Default listen address: `http://localhost:8080` (`PORT` env, default `8080`).
 
 ### Docker
 
+Prefer the root Compose stack with the frontend:
+
+```bash
+# from repo root
+make up
+```
+
+Standalone API image:
+
 ```bash
 docker build -t calczzle-backend .
 docker run --rm -p 8080:8080 calczzle-backend
+```
+
+Coverage without a local Go install (from repo root):
+
+```bash
+make cover-backend
 ```
 
 ## API
