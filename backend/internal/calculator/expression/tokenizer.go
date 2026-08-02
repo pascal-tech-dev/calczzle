@@ -53,7 +53,7 @@ func Tokenize(input string) ([]Token, error) {
 			position++
 		case character == '%':
 			tokens = append(tokens, Token{
-				Type:     TokenOperator,
+				Type:     TokenPercentage,
 				Value:    "%",
 				Position: position,
 			})

@@ -91,7 +91,7 @@ func TestTokenize(t *testing.T) {
 				{Type: TokenNumber, Value: "100"},
 				{Type: TokenOperator, Value: "*"},
 				{Type: TokenNumber, Value: "15"},
-				{Type: TokenOperator, Value: "%"},
+				{Type: TokenPercentage, Value: "%"},
 			},
 		},
 		{
@@ -213,7 +213,7 @@ func TestTokenize(t *testing.T) {
 				{Type: TokenRightParenthesis, Value: ")"},
 				{Type: TokenOperator, Value: "*"},
 				{Type: TokenNumber, Value: "20"},
-				{Type: TokenOperator, Value: "%"},
+				{Type: TokenPercentage, Value: "%"},
 			},
 		},
 		{
