@@ -66,6 +66,44 @@ func TestEvaluateSuccess(t *testing.T) {
 	}
 }
 
+func TestEvaluateCleansFloatingPointNoise(t *testing.T) {
+	t.Parallel()
+
+	// 0.1 + 0.005 in IEEE-754 is often 0.10500000000000001
+	fake := &fakeEvaluator{result: 0.1 + 0.005}
+	app := fiber.New()
+	controller.New(fake).Register(app)
+
+	body := []byte(`{"expression":"10% + .005"}`)
+	req := httptest.NewRequest(http.MethodPost, "/api/v1/evaluate", bytes.NewReader(body))
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := app.Test(req)
+	if err != nil {
+		t.Fatalf("app.Test: %v", err)
+	}
+	defer resp.Body.Close()
+
+	raw, err := io.ReadAll(resp.Body)
+	if err != nil {
+		t.Fatalf("read body: %v", err)
+	}
+
+	if string(raw) != `{"result":0.105}` && string(raw) != `{"result":0.105}`+"\n" {
+		// Prefer exact JSON text so we catch 0.10500000000000001 leaking through.
+		var got controller.EvaluateResponse
+		if err := json.Unmarshal(raw, &got); err != nil {
+			t.Fatalf("unmarshal: %v\nbody: %s", err, raw)
+		}
+		if got.Result != 0.105 {
+			t.Fatalf("result = %v (%s), want 0.105", got.Result, raw)
+		}
+		if bytes.Contains(raw, []byte("000000")) {
+			t.Fatalf("JSON still has float noise: %s", raw)
+		}
+	}
+}
+
 func TestEvaluateEmptyExpression(t *testing.T) {
 	t.Parallel()
 

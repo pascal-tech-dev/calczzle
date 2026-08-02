@@ -53,6 +53,12 @@ func TestErrorHandlerMapping(t *testing.T) {
 			wantStatus: http.StatusBadRequest,
 			wantCode:   "INVALID_EXPRESSION",
 		},
+		{
+			name:       "request too large",
+			err:        fiber.ErrRequestEntityTooLarge,
+			wantStatus: http.StatusRequestEntityTooLarge,
+			wantCode:   "REQUEST_TOO_LARGE",
+		},
 	}
 
 	for _, tt := range tests {

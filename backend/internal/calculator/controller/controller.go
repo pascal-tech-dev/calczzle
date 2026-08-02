@@ -45,5 +45,5 @@ func (c *Controller) Evaluate(ctx fiber.Ctx) error {
 		return err
 	}
 
-	return ctx.JSON(EvaluateResponse{Result: result})
+	return ctx.JSON(EvaluateResponse{Result: cleanFloat(result)})
 }

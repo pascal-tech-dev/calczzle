@@ -1,0 +1,20 @@
+# Build context exclusions for smaller, faster Docker builds.
+
+.git
+.cursor
+.tmp
+tmp
+bin
+coverage.out
+coverage.html
+*.test
+*.out
+
+# Docs and editor noise are not needed in the image.
+docs
+README.md
+Makefile
+
+# Local env files
+.env
+.env.*

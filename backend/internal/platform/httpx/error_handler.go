@@ -33,10 +33,14 @@ func mapError(err error) (status int, code, message string) {
 
 	var fiberErr *fiber.Error
 	if errors.As(err, &fiberErr) {
-		if fiberErr.Code == fiber.StatusNotFound {
+		switch fiberErr.Code {
+		case fiber.StatusNotFound:
 			return fiber.StatusNotFound, "NOT_FOUND", "The requested resource was not found."
+		case fiber.StatusRequestEntityTooLarge:
+			return fiber.StatusRequestEntityTooLarge, "REQUEST_TOO_LARGE", "The request body is too large."
+		default:
+			return fiberErr.Code, "INTERNAL_SERVER_ERROR", "An unexpected error occurred."
 		}
-		return fiberErr.Code, "INTERNAL_SERVER_ERROR", "An unexpected error occurred."
 	}
 
 	// Tokenizer/parser still return plain errors for syntax problems.

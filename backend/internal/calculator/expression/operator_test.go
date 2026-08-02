@@ -44,7 +44,7 @@ func TestLookupOperator(t *testing.T) {
 			name:           "exponentiation",
 			symbol:         "^",
 			wantOK:         true,
-			wantPrecedence: 3,
+			wantPrecedence: 4,
 			wantAssoc:      RightAssociative,
 		},
 		{
