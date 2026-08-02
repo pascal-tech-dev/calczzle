@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+coverage
+.git
+.cursor
+*.log
+.env
+.env.*
+!.env.example
+README.md
+docs

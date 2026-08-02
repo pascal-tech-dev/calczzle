@@ -1,75 +1,75 @@
-# React + TypeScript + Vite
+# Calczzle Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite + TypeScript calculator UI for the Sezzle calculator assignment.
 
-Currently, two official plugins are available:
+The frontend builds expressions and sends them to the Go backend. It never evaluates math locally and never uses `eval()`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React 19 + TypeScript
+- Vite
+- Vitest + React Testing Library
+- CSS Modules
+- nginx (production)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Development
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+cd /workspace/frontend
+npm install
+npm run dev -- --host 0.0.0.0
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+API calls go to `/api/v1/evaluate`. Vite proxies them to the backend:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+Browser → localhost:5173/api/... → Vite → backend:8080/api/...
 ```
+
+Configure the proxy target with `.env` (see `.env.example`):
+
+```dotenv
+BACKEND_PROXY_TARGET=http://backend:8080
+```
+
+## Scripts
+
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Start Vite dev server |
+| `npm run build` | Typecheck + production build |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | ESLint |
+| `npm run test` | Vitest watch mode |
+| `npm run test:run` | Single test run |
+| `npm run test:coverage` | Tests with coverage |
+
+## Architecture
+
+```text
+App
+ └─ Calculator
+     └─ useCalculator
+         ├─ calculatorReducer / expressionBuilder
+         └─ calculatorApi → POST /api/v1/evaluate → Go backend
+```
+
+## Production Docker
+
+Multi-stage build: Node builds the app, nginx serves `dist` and proxies `/api/` to `backend:8080`.
+
+```bash
+docker build -t calczzle-frontend .
+docker run --rm -p 8081:80 calczzle-frontend
+```
+
+In Compose, attach the container to the same network as the `backend` service so `http://backend:8080` resolves.
+
+## Manual checks
+
+- Keypad and keyboard build expressions (`2^-3`, `sqrt(16)+2`, `100*15%`)
+- `=` shows backend results and validation errors
+- Loading disables duplicate evaluate requests
+- `npm run lint`, `npm run test:run`, and `npm run build` pass

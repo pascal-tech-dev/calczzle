@@ -7,20 +7,20 @@ Extracted from `docs/frontend-guide.md`. Implement **one phase at a time**. Do n
 | 1 | Verify and clean the Vite project | done |
 | 2 | Install test dependencies and configure scripts | done |
 | 3 | Create the frontend folder structure | done |
-| 4 | Define API and calculator TypeScript types | pending |
-| 5 | Implement the calculator API client | pending |
-| 6 | Define calculator keys and expression helpers | pending |
-| 7 | Implement calculator state with `useReducer` | pending |
-| 8 | Implement the `useCalculator` hook | pending |
-| 9 | Build presentational components | pending |
-| 10 | Connect UI interactions to backend evaluation | pending |
-| 11 | Add keyboard support and accessibility | pending |
-| 12 | Add responsive styling | pending |
-| 13 | Add loading and error behavior | pending |
-| 14 | Write unit and component tests | pending |
-| 15 | Connect frontend and backend Dev Containers | pending |
-| 16 | Add the production Docker setup | pending |
-| 17 | Run final quality checks and update README | pending |
+| 4 | Define API and calculator TypeScript types | done |
+| 5 | Implement the calculator API client | done |
+| 6 | Define calculator keys and expression helpers | done |
+| 7 | Implement calculator state with `useReducer` | done |
+| 8 | Implement the `useCalculator` hook | done |
+| 9 | Build presentational components | done |
+| 10 | Connect UI interactions to backend evaluation | done |
+| 11 | Add keyboard support and accessibility | done |
+| 12 | Add responsive styling | done |
+| 13 | Add loading and error behavior | done |
+| 14 | Write unit and component tests | done |
+| 15 | Connect frontend and backend Dev Containers | done |
+| 16 | Add the production Docker setup | done |
+| 17 | Run final quality checks and update README | done |
 
 ## Milestones (optional grouping)
 
