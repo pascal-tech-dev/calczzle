@@ -9,11 +9,14 @@ import (
 	calculatorService "pascal-tech-dev/calczzle-backend/internal/calculator/service"
 	"pascal-tech-dev/calczzle-backend/internal/config"
 	"pascal-tech-dev/calczzle-backend/internal/health"
+	"pascal-tech-dev/calczzle-backend/internal/platform/httpx"
 )
 
 // New constructs the Fiber application, registers middleware, and wires routes.
 func New(_ config.Config) *fiber.App {
-	application := fiber.New()
+	application := fiber.New(fiber.Config{
+		ErrorHandler: httpx.ErrorHandler,
+	})
 
 	application.Use(recover.New())
 	application.Use(logger.New())

@@ -6,11 +6,11 @@ func TestLookupOperator(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name          string
-		symbol        string
-		wantOK        bool
+		name           string
+		symbol         string
+		wantOK         bool
 		wantPrecedence int
-		wantAssoc     Associativity
+		wantAssoc      Associativity
 	}{
 		{
 			name:           "addition",
@@ -48,14 +48,21 @@ func TestLookupOperator(t *testing.T) {
 			wantAssoc:      RightAssociative,
 		},
 		{
+			name:           "unary minus",
+			symbol:         UnaryMinusSymbol,
+			wantOK:         true,
+			wantPrecedence: 3,
+			wantAssoc:      RightAssociative,
+		},
+		{
 			name:   "percentage is not a binary operator",
 			symbol: "%",
-			wantOK:  false,
+			wantOK: false,
 		},
 		{
 			name:   "unknown symbol",
 			symbol: "@",
-			wantOK:  false,
+			wantOK: false,
 		},
 	}
 

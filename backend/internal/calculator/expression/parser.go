@@ -1,14 +1,10 @@
 package expression
 
-import "errors"
+import (
+	"errors"
 
-const unaryMinusSymbol = "u-"
-
-var unaryMinusOp = Operator{
-	Symbol:        unaryMinusSymbol,
-	Precedence:    4,
-	Associativity: RightAssociative,
-}
+	"pascal-tech-dev/calczzle-backend/pkg"
+)
 
 // ToPostfix converts infix tokens to postfix using the shunting-yard algorithm.
 func ToPostfix(tokens []Token) ([]Token, error) {
@@ -16,8 +12,8 @@ func ToPostfix(tokens []Token) ([]Token, error) {
 		return nil, errors.New("empty expression")
 	}
 
-	output := make([]Token, 0, len(tokens))
-	stack := make([]Token, 0)
+	output := pkg.NewQueue[Token]()
+	stack := pkg.NewStack[Token]()
 	expectOperand := true
 
 	for _, token := range tokens {
@@ -26,7 +22,7 @@ func ToPostfix(tokens []Token) ([]Token, error) {
 			if !expectOperand {
 				return nil, errors.New("unexpected number")
 			}
-			output = append(output, token)
+			output.Enqueue(token)
 			expectOperand = false
 
 		case TokenFunction:
@@ -34,21 +30,21 @@ func ToPostfix(tokens []Token) ([]Token, error) {
 				return nil, errors.New("unexpected function")
 			}
 			if !IsSupportedFunction(token.Value) {
-				return nil, errors.New("unsupported function")
+				return nil, ErrUnsupportedFunction
 			}
-			stack = append(stack, token)
+			stack.Push(token)
 
 		case TokenLeftParenthesis:
 			if !expectOperand {
 				return nil, errors.New("unexpected left parenthesis")
 			}
-			stack = append(stack, token)
+			stack.Push(token)
 
 		case TokenRightParenthesis:
 			if expectOperand {
 				return nil, errors.New("unexpected right parenthesis")
 			}
-			if err := popUntilLeftParen(&output, &stack); err != nil {
+			if err := popUntilLeftParen(output, stack); err != nil {
 				return nil, err
 			}
 			expectOperand = false
@@ -57,16 +53,16 @@ func ToPostfix(tokens []Token) ([]Token, error) {
 			if expectOperand {
 				return nil, errors.New("unexpected percentage")
 			}
-			output = append(output, token)
+			output.Enqueue(token)
 
 		case TokenOperator:
 			if expectOperand {
-				if err := handleUnaryOperator(token, &stack); err != nil {
+				if err := handleUnaryOperator(token, stack); err != nil {
 					return nil, err
 				}
 				continue
 			}
-			if err := handleBinaryOperator(token, &output, &stack); err != nil {
+			if err := handleBinaryOperator(token, output, stack); err != nil {
 				return nil, err
 			}
 			expectOperand = true
@@ -80,32 +76,32 @@ func ToPostfix(tokens []Token) ([]Token, error) {
 		return nil, errors.New("expression ends unexpectedly")
 	}
 
-	for i := len(stack) - 1; i >= 0; i-- {
-		top := stack[i]
+	for !stack.IsEmpty() {
+		top, _ := stack.Pop()
 		switch top.Type {
 		case TokenLeftParenthesis:
 			return nil, errors.New("mismatched parentheses")
 		case TokenFunction:
 			return nil, errors.New("mismatched parentheses")
 		case TokenOperator:
-			output = append(output, top)
+			output.Enqueue(top)
 		default:
 			return nil, errors.New("invalid token on operator stack")
 		}
 	}
 
-	return output, nil
+	return drainQueue(output), nil
 }
 
-func handleUnaryOperator(token Token, stack *[]Token) error {
+func handleUnaryOperator(token Token, stack *pkg.Stack[Token]) error {
 	switch token.Value {
 	case "+":
 		// Unary plus is a no-op.
 		return nil
 	case "-":
-		*stack = append(*stack, Token{
+		stack.Push(Token{
 			Type:     TokenOperator,
-			Value:    unaryMinusSymbol,
+			Value:    UnaryMinusSymbol,
 			Position: token.Position,
 		})
 		return nil
@@ -114,22 +110,22 @@ func handleUnaryOperator(token Token, stack *[]Token) error {
 	}
 }
 
-func handleBinaryOperator(token Token, output *[]Token, stack *[]Token) error {
+func handleBinaryOperator(token Token, output *pkg.Queue[Token], stack *pkg.Stack[Token]) error {
 	op, ok := LookupOperator(token.Value)
 	if !ok {
 		return errors.New("unknown operator")
 	}
 
-	for len(*stack) > 0 {
-		top := (*stack)[len(*stack)-1]
-		if !shouldPopOperator(top, op) {
+	for {
+		top, ok := stack.Peek()
+		if !ok || !shouldPopOperator(top, op) {
 			break
 		}
-		*output = append(*output, top)
-		*stack = (*stack)[:len(*stack)-1]
+		stack.Pop()
+		output.Enqueue(top)
 	}
 
-	*stack = append(*stack, token)
+	stack.Push(token)
 	return nil
 }
 
@@ -149,18 +145,14 @@ func operatorFromStackToken(token Token) (Operator, bool) {
 	if token.Type != TokenOperator {
 		return Operator{}, false
 	}
-	if token.Value == unaryMinusSymbol {
-		return unaryMinusOp, true
-	}
 	return LookupOperator(token.Value)
 }
 
-func popUntilLeftParen(output *[]Token, stack *[]Token) error {
+func popUntilLeftParen(output *pkg.Queue[Token], stack *pkg.Stack[Token]) error {
 	found := false
 
-	for len(*stack) > 0 {
-		top := (*stack)[len(*stack)-1]
-		*stack = (*stack)[:len(*stack)-1]
+	for !stack.IsEmpty() {
+		top, _ := stack.Pop()
 
 		if top.Type == TokenLeftParenthesis {
 			found = true
@@ -169,18 +161,26 @@ func popUntilLeftParen(output *[]Token, stack *[]Token) error {
 		if top.Type == TokenFunction {
 			return errors.New("mismatched parentheses")
 		}
-		*output = append(*output, top)
+		output.Enqueue(top)
 	}
 
 	if !found {
 		return errors.New("mismatched parentheses")
 	}
 
-	if len(*stack) > 0 && (*stack)[len(*stack)-1].Type == TokenFunction {
-		fn := (*stack)[len(*stack)-1]
-		*stack = (*stack)[:len(*stack)-1]
-		*output = append(*output, fn)
+	if top, ok := stack.Peek(); ok && top.Type == TokenFunction {
+		fn, _ := stack.Pop()
+		output.Enqueue(fn)
 	}
 
 	return nil
+}
+
+func drainQueue(q *pkg.Queue[Token]) []Token {
+	result := make([]Token, 0, q.Len())
+	for !q.IsEmpty() {
+		item, _ := q.Dequeue()
+		result = append(result, item)
+	}
+	return result
 }
