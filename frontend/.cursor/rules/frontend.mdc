@@ -1,0 +1,139 @@
+---
+alwaysApply: true
+---
+
+# Frontend Development Rules
+
+Always read `docs/frontend-guide.md` before making implementation decisions.
+
+The guide defines:
+
+- frontend architecture
+- folder structure
+- component responsibilities
+- state-management approach
+- API integration conventions
+- backend contract
+- implementation phases
+- testing strategy
+- styling and responsive-design expectations
+- Docker and development-environment conventions
+
+Follow the guide as the primary source of truth for all frontend work.
+
+## Architecture Rules
+
+- Use React, Vite, and TypeScript.
+- Follow the feature-based folder structure defined in `docs/frontend-guide.md`.
+- Keep calculator-specific code inside the calculator feature.
+- Keep shared components and utilities generic.
+- Do not introduce Redux, Zustand, MobX, or another state-management library unless the user explicitly requests it.
+- Use the state-management approach defined in the frontend guide.
+- Keep components small and focused on a single responsibility.
+- Keep API communication outside presentational components.
+- Do not place business logic directly inside JSX.
+- Do not create unnecessary abstractions, wrappers, factories, or generic systems.
+
+## Backend Integration Rules
+
+- Treat the Go backend as the only source of truth for expression evaluation.
+- Send expressions to `POST /api/v1/evaluate`.
+- Do not evaluate mathematical expressions in the frontend.
+- Never use `eval`, `Function`, or a third-party expression-evaluation library.
+- Do not duplicate backend parsing, precedence, unary-minus, percentage, square-root, or validation logic in the frontend.
+- Use the request and response contracts defined in `docs/frontend-guide.md`.
+- Handle loading, success, and error states explicitly.
+- Convert backend errors into clear user-facing messages without exposing internal details.
+- Keep backend base URLs configurable through the established Vite environment or proxy configuration.
+
+## TypeScript Rules
+
+- Use strict TypeScript types.
+- Avoid `any`.
+- Define explicit types for:
+  - calculator state
+  - reducer actions
+  - API requests
+  - API responses
+  - API errors
+  - component props
+
+- Prefer discriminated unions for reducer actions and state transitions.
+- Do not use unsafe type assertions unless there is no cleaner alternative.
+- Keep backend transport models separate from UI state models when their responsibilities differ.
+
+## Component Rules
+
+- Components should primarily render UI and dispatch user actions.
+- Place calculator state transitions in the reducer or calculator hook defined by the guide.
+- Keep API calls inside the API layer or calculator hook, not inside button or display components.
+- Use semantic HTML elements, especially real `<button>` elements for calculator keys.
+- Add accessible labels where a symbol alone is not sufficiently descriptive.
+- Ensure keyboard and pointer interactions produce consistent behavior.
+- Preserve responsive behavior for desktop and mobile layouts.
+
+## State Rules
+
+- Maintain one clear source of truth for the current expression.
+- Keep loading, result, error, and post-evaluation behavior explicit in state.
+- Do not store values that can be derived safely from existing state.
+- Do not mutate state directly.
+- Keep reducer functions pure.
+- Reset stale errors when the user starts a new valid interaction.
+- Prevent duplicate evaluation requests while a request is already in progress.
+
+## Validation Rules
+
+- Frontend validation should be limited to user experience and request readiness.
+- The backend remains responsible for authoritative expression validation.
+- The frontend may prevent obviously incomplete submissions, such as an empty expression.
+- Do not reject expressions merely because the frontend does not understand their mathematical structure.
+- Display backend validation errors clearly and consistently.
+
+## Styling Rules
+
+- Follow the visual and responsive direction defined in `docs/frontend-guide.md`.
+- Keep styles maintainable and colocated according to the guide.
+- Do not introduce a UI framework unless the user explicitly requests it.
+- Maintain visible focus states.
+- Avoid layout shifts during loading and error states.
+- Ensure calculator controls remain usable on narrow screens.
+
+## Testing Rules
+
+- Use the testing stack defined in `docs/frontend-guide.md`.
+- Test behavior from the user's perspective.
+- Add tests for:
+  - reducer state transitions
+  - expression-building behavior
+  - API success responses
+  - API error responses
+  - loading states
+  - calculator interactions
+  - keyboard interactions when supported
+
+- Mock the API boundary instead of mocking internal implementation details.
+- Do not make real backend or network requests in unit and component tests.
+- Keep tests deterministic and independent.
+
+## Implementation Rules
+
+- Follow the implementation phases in `docs/frontend-guide.md`.
+- Complete and verify one phase before moving to the next.
+- Run formatting, linting, type checking, and tests after meaningful changes.
+- Reuse the existing project configuration before adding new tools.
+- Do not add dependencies when the same result can be achieved cleanly with React, TypeScript, Vite, or existing project packages.
+- Do not modify backend code while implementing frontend tasks unless the user explicitly requests it.
+- Do not rename API fields, routes, or response structures without explicit user approval.
+
+## Decision Priority
+
+When making a frontend implementation decision, use this order:
+
+1. Explicit user instructions
+2. `docs/frontend-guide.md`
+3. Existing project conventions
+4. These frontend development rules
+5. The simplest maintainable implementation
+
+Do not deviate from `docs/frontend-guide.md` unless the user explicitly instructs otherwise.

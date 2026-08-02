@@ -1,0 +1,28 @@
+.calculator {
+  width: min(100%, 24rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.display {
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  text-align: right;
+  font-size: 1.5rem;
+  background: #fff;
+  border: 1px solid #ddd;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.keypad button {
+  min-height: 2.75rem;
+}
